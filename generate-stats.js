@@ -185,6 +185,8 @@ async function fetchUser(token, from, to) {
           totalCommitContributions
           totalIssueContributions
           totalPullRequestContributions
+          totalPullRequestReviewContributions
+          restrictedContributionsCount
         }
       }
     }
@@ -203,6 +205,8 @@ async function fetchYearlyContributions(token, year) {
           totalCommitContributions
           totalIssueContributions
           totalPullRequestContributions
+          totalPullRequestReviewContributions
+          restrictedContributionsCount
         }
       }
     }
@@ -504,6 +508,8 @@ function mergeContributionYears(cache, yearlyByYear, nowIso) {
       commits: Math.max(previous.commits || 0, current.commits || 0),
       issues: Math.max(previous.issues || 0, current.issues || 0),
       prs: Math.max(previous.prs || 0, current.prs || 0),
+      reviews: Math.max(previous.reviews || 0, current.reviews || 0),
+      restricted: Math.max(previous.restricted || 0, current.restricted || 0),
       lastSeenAt: nowIso
     }
   }
@@ -521,6 +527,8 @@ function mergeLastYear(cache, current, activeRepos, nowIso, since) {
     commits: Math.max(previous.commits || 0, current.commits || 0, repoCommits),
     issues: Math.max(previous.issues || 0, current.issues || 0),
     prs: Math.max(previous.prs || 0, current.prs || 0),
+    reviews: Math.max(previous.reviews || 0, current.reviews || 0),
+    restricted: Math.max(previous.restricted || 0, current.restricted || 0),
     lastSeenAt: nowIso
   }
 }
@@ -555,8 +563,10 @@ function sumContributionYears(contributionYears) {
     acc.commits += year.commits || 0
     acc.issues += year.issues || 0
     acc.prs += year.prs || 0
+    acc.reviews += year.reviews || 0
+    acc.restricted += year.restricted || 0
     return acc
-  }, { commits: 0, issues: 0, prs: 0 })
+  }, { commits: 0, issues: 0, prs: 0, reviews: 0, restricted: 0 })
 }
 
 function topLanguages(repos) {
@@ -583,10 +593,12 @@ function topLanguages(repos) {
 
 function buildStatsRows(data) {
   const allTimeRows = [
-    `**${formatNumber(data.knownRepos)}** known repos`,
     `**${formatNumber(data.totalCommitsAllTime)}** commits`,
     `**${formatNumber(data.totalIssuesAllTime)}** issues`,
     `**${formatNumber(data.totalPRsAllTime)}** PRs`,
+    `**${formatNumber(data.totalReviewsAllTime)}** PR reviews`,
+    `**${formatNumber(data.totalRestrictedAllTime)}** private/restricted contributions`,
+    `**${formatNumber(data.knownRepos)}** known repos`,
     `**${formatNumber(data.stars)}** owned public stars`
   ]
 
@@ -594,6 +606,8 @@ function buildStatsRows(data) {
     `**${formatNumber(data.totalCommitsLastYear)}** commits`,
     `**${formatNumber(data.totalIssuesLastYear)}** issues`,
     `**${formatNumber(data.totalPRsLastYear)}** PRs`,
+    `**${formatNumber(data.totalReviewsLastYear)}** PR reviews`,
+    `**${formatNumber(data.totalRestrictedLastYear)}** private/restricted contributions`,
     `${additionsBadge(data.totalAdditionsLastYear)} lines added`,
     `${deletionsBadge(data.totalDeletionsLastYear)} lines removed`
   ]
@@ -645,7 +659,9 @@ async function main() {
     {
       commits: yearlyCollections[index].totalCommitContributions,
       issues: yearlyCollections[index].totalIssueContributions,
-      prs: yearlyCollections[index].totalPullRequestContributions
+      prs: yearlyCollections[index].totalPullRequestContributions,
+      reviews: yearlyCollections[index].totalPullRequestReviewContributions,
+      restricted: yearlyCollections[index].restrictedContributionsCount
     }
   ]))
 
@@ -674,7 +690,9 @@ async function main() {
     {
       commits: user.lastYear.totalCommitContributions,
       issues: user.lastYear.totalIssueContributions,
-      prs: user.lastYear.totalPullRequestContributions
+      prs: user.lastYear.totalPullRequestContributions,
+      reviews: user.lastYear.totalPullRequestReviewContributions,
+      restricted: user.lastYear.restrictedContributionsCount
     },
     nowIso,
     since
@@ -696,9 +714,13 @@ async function main() {
     totalCommitsAllTime: totals.commits,
     totalIssuesAllTime: totals.issues,
     totalPRsAllTime: totals.prs,
+    totalReviewsAllTime: totals.reviews,
+    totalRestrictedAllTime: totals.restricted,
     totalCommitsLastYear: cache.lastYear.commits,
     totalIssuesLastYear: cache.lastYear.issues,
     totalPRsLastYear: cache.lastYear.prs,
+    totalReviewsLastYear: cache.lastYear.reviews,
+    totalRestrictedLastYear: cache.lastYear.restricted,
     totalAdditionsLastYear: knownActiveRepos.reduce((sum, repo) => sum + repo.additions, 0),
     totalDeletionsLastYear: knownActiveRepos.reduce((sum, repo) => sum + repo.deletions, 0),
     stars: cachedRepos

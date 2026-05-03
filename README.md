@@ -12,11 +12,13 @@ Joined GitHub **9** years ago.
 
 | All Time | Last Year / Cached | Top languages (readable + cached) |
 |----------|--------------------|-----------------------------------|
-| **84** known repos | **587** commits | ![Rust 40%](https://img.shields.io/static/v1?style=flat&label=&message=Rust+40%25&color=dea584) |
-| **1,002** commits | **2** issues | ![Python 21%](https://img.shields.io/static/v1?style=flat&label=&message=Python+21%25&color=3572a5) |
-| **20** issues | **93** PRs | ![TypeScript 18%](https://img.shields.io/static/v1?style=flat&label=&message=TypeScript+18%25&color=3178c6) |
-| **112** PRs | ![+148,915](https://img.shields.io/static/v1?style=flat&label=&message=%2B148%2C915&color=brightgreen) lines added | ![Go 16%](https://img.shields.io/static/v1?style=flat&label=&message=Go+16%25&color=00add8) |
-| **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat&label=&message=-43%2C888&color=red) lines removed | ![Shell 6%](https://img.shields.io/static/v1?style=flat&label=&message=Shell+6%25&color=89e051) |
+| **1,002** commits | **587** commits | ![Rust 40%](https://img.shields.io/static/v1?style=flat&label=&message=Rust+40%25&color=dea584) |
+| **20** issues | **2** issues | ![Python 21%](https://img.shields.io/static/v1?style=flat&label=&message=Python+21%25&color=3572a5) |
+| **112** PRs | **93** PRs | ![TypeScript 18%](https://img.shields.io/static/v1?style=flat&label=&message=TypeScript+18%25&color=3178c6) |
+| **12** PR reviews | **5** PR reviews | ![Go 16%](https://img.shields.io/static/v1?style=flat&label=&message=Go+16%25&color=00add8) |
+| **5,084** private/restricted contributions | **421** private/restricted contributions | ![Shell 6%](https://img.shields.io/static/v1?style=flat&label=&message=Shell+6%25&color=89e051) |
+| **84** known repos | ![+148,915](https://img.shields.io/static/v1?style=flat&label=&message=%2B148%2C915&color=brightgreen) lines added |  |
+| **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat&label=&message=-43%2C888&color=red) lines removed |  |
 
 ## Most Active Public Projects (Last Year)
 
