@@ -752,7 +752,7 @@ function topLanguages(repos, topN = 5) {
   }))
 }
 
-function buildStatsRows(data) {
+function buildStatsTableRows(data) {
   const allTimeRows = [
     `🔥 **${formatNumber(data.totalCommitsAllTime)}** commits`,
     `📋 **${formatNumber(data.totalIssuesAllTime)}** issues`,
@@ -773,6 +773,15 @@ function buildStatsRows(data) {
     `${deletionsBadge(data.totalDeletionsLastYear)} lines removed`
   ]
 
+  return { allTimeRows, lastYearRows }
+}
+
+function statsTableRowCount(data) {
+  return buildStatsTableRows(data).allTimeRows.length
+}
+
+function buildStatsRows(data) {
+  const { allTimeRows, lastYearRows } = buildStatsTableRows(data)
   const languageRows = data.topLanguages.map(languageBadge)
 
   return allTimeRows.map((allTime, index) => {
@@ -1032,7 +1041,6 @@ async function main() {
     stars: cachedRepos
       .filter(repo => !repo.isPrivate && repo.ownerLogin === USERNAME)
       .reduce((sum, repo) => sum + repo.stars, 0),
-    topLanguages: topLanguages(knownActiveRepos),
     topRepos: publicTopRepos,
     orgRows: buildOrgRows(orgsForReadme),
     featuredOrgSection: buildFeaturedOrgSection(
@@ -1041,6 +1049,7 @@ async function main() {
     )
   }
 
+  data.topLanguages = topLanguages(knownActiveRepos, statsTableRowCount(data))
   data.statsRows = buildStatsRows(data)
 
   const template = fs.readFileSync(path.join(__dirname, 'TEMPLATE.md'), 'utf8')
