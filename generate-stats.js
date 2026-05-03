@@ -808,9 +808,9 @@ function buildFeaturedOrgSection(featuredOrg, cachedOrg) {
   const description = featuredOrg.description || 'A project I am currently building.'
   const lines = `${additionsBadge(repoStats.additionsLastYear)} ${deletionsBadge(repoStats.deletionsLastYear)}`
   const links = [
-    `[Website](${websiteUrl})`,
-    `[GitHub](${githubUrl})`
-  ].filter(link => !link.includes('(undefined)')).join(' · ')
+    websiteUrl ? `[![Website](https://img.shields.io/badge/Website-111111?style=flat&logo=googlechrome&logoColor=white)](${websiteUrl})` : null,
+    githubUrl ? `[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](${githubUrl})` : null
+  ].filter(Boolean).join(' ')
 
   return `## 🏠 Current Weekend Project: ${orgName}
 

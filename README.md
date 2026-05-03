@@ -20,7 +20,7 @@ Joined GitHub **9** years ago 🚀
 | 📦 **84** known repos | ![+148,915](https://img.shields.io/static/v1?style=flat&label=&message=%2B148%2C915&color=brightgreen) lines added |  |
 | ⭐ **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat&label=&message=-43%2C888&color=red) lines removed |  |
 
-<sub>🔒 Language stats include private repos while the token can read them, then keep using cached language weights. GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay count-only unless the org/repo is still readable or was cached earlier.</sub>
+_🔒 Language stats include private repos while the token can read them, then keep using cached language weights. GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay count-only unless the org/repo is still readable or was cached earlier._
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
@@ -33,7 +33,7 @@ Joined GitHub **9** years ago 🚀
 
 Weekend project I am currently building.
 
-[Website](https://clack.house) · [GitHub](https://github.com/ClackHouse)
+[![Website](https://img.shields.io/badge/Website-111111?style=flat&logo=googlechrome&logoColor=white)](https://clack.house) [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/ClackHouse)
 
 | Repos | Last Year Activity | Lines | Top languages |
 |-------|--------------------|-------|---------------|
