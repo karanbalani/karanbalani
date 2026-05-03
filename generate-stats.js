@@ -593,21 +593,21 @@ function topLanguages(repos) {
 
 function buildStatsRows(data) {
   const allTimeRows = [
-    `**${formatNumber(data.totalCommitsAllTime)}** commits`,
-    `**${formatNumber(data.totalIssuesAllTime)}** issues`,
-    `**${formatNumber(data.totalPRsAllTime)}** PRs`,
-    `**${formatNumber(data.totalReviewsAllTime)}** PR reviews`,
-    `**${formatNumber(data.totalRestrictedAllTime)}** private/restricted contributions`,
-    `**${formatNumber(data.knownRepos)}** known repos`,
-    `**${formatNumber(data.stars)}** owned public stars`
+    `🔥 **${formatNumber(data.totalCommitsAllTime)}** commits`,
+    `📋 **${formatNumber(data.totalIssuesAllTime)}** issues`,
+    `🔀 **${formatNumber(data.totalPRsAllTime)}** PRs`,
+    `👀 **${formatNumber(data.totalReviewsAllTime)}** PR reviews`,
+    `🔒 **${formatNumber(data.totalRestrictedAllTime)}** private/restricted contributions`,
+    `📦 **${formatNumber(data.knownRepos)}** known repos`,
+    `⭐ **${formatNumber(data.stars)}** owned public stars`
   ]
 
   const lastYearRows = [
-    `**${formatNumber(data.totalCommitsLastYear)}** commits`,
-    `**${formatNumber(data.totalIssuesLastYear)}** issues`,
-    `**${formatNumber(data.totalPRsLastYear)}** PRs`,
-    `**${formatNumber(data.totalReviewsLastYear)}** PR reviews`,
-    `**${formatNumber(data.totalRestrictedLastYear)}** private/restricted contributions`,
+    `🔥 **${formatNumber(data.totalCommitsLastYear)}** commits`,
+    `📋 **${formatNumber(data.totalIssuesLastYear)}** issues`,
+    `🔀 **${formatNumber(data.totalPRsLastYear)}** PRs`,
+    `👀 **${formatNumber(data.totalReviewsLastYear)}** PR reviews`,
+    `🔒 **${formatNumber(data.totalRestrictedLastYear)}** private/restricted contributions`,
     `${additionsBadge(data.totalAdditionsLastYear)} lines added`,
     `${deletionsBadge(data.totalDeletionsLastYear)} lines removed`
   ]
