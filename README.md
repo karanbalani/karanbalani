@@ -14,8 +14,6 @@ Joined GitHub **9** years ago 🚀
 | 📦 **84** known repos | ![+148,915](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B148%2C915&color=brightgreen) lines added |  |
 | ⭐ **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat-square&label=&message=-43%2C888&color=red) lines removed |  |
 
-_🔒 Language stats include private repos while the token can read them, then keep using cached language weights. GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay count-only unless the org/repo is still readable or was cached earlier._
-
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
 | Organization | Coverage | Activity | Lines | Top languages |
