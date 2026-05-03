@@ -10,7 +10,7 @@ Joined GitHub **9** years ago 🚀
 
 ## 📊 Stats
 
-| All Time | Last Year / Cached | Top languages (readable + cached) |
+| All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
 | 🔥 **1,003** commits | 🔥 **588** commits | ![Rust 40%](https://img.shields.io/static/v1?style=flat&label=&message=Rust+40%25&color=dea584) |
 | 📋 **20** issues | 📋 **2** issues | ![Python 21%](https://img.shields.io/static/v1?style=flat&label=&message=Python+21%25&color=3572a5) |
@@ -20,7 +20,7 @@ Joined GitHub **9** years ago 🚀
 | 📦 **84** known repos | ![+148,915](https://img.shields.io/static/v1?style=flat&label=&message=%2B148%2C915&color=brightgreen) lines added |  |
 | ⭐ **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat&label=&message=-43%2C888&color=red) lines removed |  |
 
-<sub>🔒 GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay ungrouped unless the org/repo is still readable or was cached earlier.</sub>
+<sub>🔒 Language stats include private repos while the token can read them, then keep using cached language weights. GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay count-only unless the org/repo is still readable or was cached earlier.</sub>
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 

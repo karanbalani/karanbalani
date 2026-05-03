@@ -10,11 +10,11 @@ Joined GitHub **{{ ACCOUNT_AGE }}** years ago 🚀
 
 ## 📊 Stats
 
-| All Time | Last Year / Cached | Top languages (readable + cached) |
+| All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
 {{ STATS_ROWS }}
 
-<sub>🔒 GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay ungrouped unless the org/repo is still readable or was cached earlier.</sub>
+<sub>🔒 Language stats include private repos while the token can read them, then keep using cached language weights. GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay count-only unless the org/repo is still readable or was cached earlier.</sub>
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
