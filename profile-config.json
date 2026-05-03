@@ -1,0 +1,20 @@
+{
+  "activeProjectIgnore": [
+    "balanikaran/ypb-public",
+    "balanikaran/ypb-media",
+    "balanikaran/balanikaran.github.io",
+    "balanikaran/balanikaran"
+  ],
+  "trackedOrganizations": [
+    "ClackHouse",
+    "SigNoz",
+    "finbox-in"
+  ],
+  "featuredOrg": {
+    "login": "ClackHouse",
+    "name": "ClackHouse",
+    "website": "https://clack.house",
+    "github": "https://github.com/ClackHouse",
+    "description": "Weekend project I am currently building."
+  }
+}
