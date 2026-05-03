@@ -2,10 +2,13 @@
 
 const fs = require('fs')
 const path = require('path')
+const crypto = require('crypto')
 const { execFileSync } = require('child_process')
 
 const USERNAME = process.env.PROFILE_USERNAME ||
   (process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[0] : 'balanikaran')
+const CACHE_FILE = path.join(__dirname, 'stats-cache.json')
+const CACHE_VERSION = 1
 
 const LANGUAGE_COLORS = {
   Astro: 'ff5d01',
@@ -18,6 +21,7 @@ const LANGUAGE_COLORS = {
   JavaScript: 'f1e05a',
   Kotlin: 'a97bff',
   Python: '3572a5',
+  Rust: 'dea584',
   Shell: '89e051',
   TypeScript: '3178c6',
   Vue: '41b883',
@@ -68,6 +72,43 @@ function deletionsBadge(value) {
 
 function languageBadge(language) {
   return badge('', `${language.name} ${language.percentage}%`, languageColor(language.name))
+}
+
+function repoCacheKey(repo) {
+  const identity = repo.id || repo.nameWithOwner
+  return crypto.createHash('sha256').update(identity).digest('hex')
+}
+
+function emptyCache() {
+  return {
+    version: CACHE_VERSION,
+    username: USERNAME,
+    generatedAt: null,
+    lastYear: null,
+    contributionYears: {},
+    repos: {}
+  }
+}
+
+function loadCache() {
+  if (!fs.existsSync(CACHE_FILE)) return emptyCache()
+
+  try {
+    const cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'))
+    return {
+      ...emptyCache(),
+      ...cache,
+      contributionYears: cache.contributionYears || {},
+      repos: cache.repos || {}
+    }
+  } catch (error) {
+    console.warn('Could not read stats-cache.json. Starting with an empty cache.')
+    return emptyCache()
+  }
+}
+
+function writeCache(cache) {
+  fs.writeFileSync(CACHE_FILE, `${JSON.stringify(cache, null, 2)}\n`)
 }
 
 async function getToken() {
@@ -134,7 +175,7 @@ async function fetchUser(token, from, to) {
         login
         name
         createdAt
-        repositories(ownerAffiliations: OWNER, privacy: PUBLIC, first: 1) {
+        repositories(ownerAffiliations: OWNER, first: 1) {
           totalCount
         }
         allYears: contributionsCollection {
@@ -176,7 +217,7 @@ async function fetchYearlyContributions(token, year) {
   return data.user.contributionsCollection
 }
 
-async function fetchRepos(token, userId, since) {
+async function fetchOwnedRepos(token, userId, since) {
   const repos = []
   let cursor = null
   let hasNextPage = true
@@ -185,32 +226,42 @@ async function fetchRepos(token, userId, since) {
     const query = `
       query($login: String!, $cursor: String, $userId: ID!, $since: GitTimestamp!) {
         user(login: $login) {
-          repositories(first: 50, after: $cursor, ownerAffiliations: OWNER, privacy: PUBLIC) {
+          repositories(first: 50, after: $cursor, ownerAffiliations: OWNER) {
             pageInfo {
               hasNextPage
               endCursor
             }
             nodes {
+              ...RepoFields
+            }
+          }
+        }
+      }
+
+      fragment RepoFields on Repository {
+        id
+        name
+        nameWithOwner
+        url
+        isPrivate
+        stargazerCount
+        owner {
+          login
+        }
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              history(since: $since, author: {id: $userId}) {
+                totalCount
+              }
+            }
+          }
+        }
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          edges {
+            size
+            node {
               name
-              url
-              stargazerCount
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(since: $since, author: {id: $userId}) {
-                      totalCount
-                    }
-                  }
-                }
-              }
-              languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
-                edges {
-                  size
-                  node {
-                    name
-                  }
-                }
-              }
             }
           }
         }
@@ -233,7 +284,79 @@ async function fetchRepos(token, userId, since) {
   return repos
 }
 
-async function fetchRepoLineStats(token, repoName, userId, since) {
+async function fetchContributedRepos(token, userId, since) {
+  const repos = []
+  let cursor = null
+  let hasNextPage = true
+
+  while (hasNextPage) {
+    const query = `
+      query($login: String!, $cursor: String, $userId: ID!, $since: GitTimestamp!) {
+        user(login: $login) {
+          repositoriesContributedTo(
+            first: 50
+            after: $cursor
+            includeUserRepositories: true
+            contributionTypes: [COMMIT, ISSUE, PULL_REQUEST]
+          ) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            nodes {
+              ...RepoFields
+            }
+          }
+        }
+      }
+
+      fragment RepoFields on Repository {
+        id
+        name
+        nameWithOwner
+        url
+        isPrivate
+        stargazerCount
+        owner {
+          login
+        }
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              history(since: $since, author: {id: $userId}) {
+                totalCount
+              }
+            }
+          }
+        }
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          edges {
+            size
+            node {
+              name
+            }
+          }
+        }
+      }
+    `
+
+    const data = await graphql(token, query, {
+      login: USERNAME,
+      cursor,
+      userId,
+      since
+    })
+
+    const page = data.user.repositoriesContributedTo
+    repos.push(...page.nodes)
+    hasNextPage = page.pageInfo.hasNextPage
+    cursor = page.pageInfo.endCursor
+  }
+
+  return repos
+}
+
+async function fetchRepoLineStats(token, repo, userId, since) {
   let additions = 0
   let deletions = 0
   let cursor = null
@@ -264,8 +387,8 @@ async function fetchRepoLineStats(token, repoName, userId, since) {
     `
 
     const data = await graphql(token, query, {
-      owner: USERNAME,
-      repo: repoName,
+      owner: repo.ownerLogin,
+      repo: repo.name,
       cursor,
       userId,
       since
@@ -296,6 +419,146 @@ function repoLanguages(repo) {
   }))
 }
 
+function normalizeRepo(repo) {
+  return {
+    key: repoCacheKey(repo),
+    name: repo.name,
+    nameWithOwner: repo.nameWithOwner,
+    ownerLogin: repo.owner.login,
+    url: repo.url,
+    isPrivate: repo.isPrivate,
+    stars: repo.isPrivate ? 0 : repo.stargazerCount,
+    commits: repo.defaultBranchRef?.target?.history?.totalCount || 0,
+    additions: 0,
+    deletions: 0,
+    languages: repoLanguages(repo)
+  }
+}
+
+function mergeCurrentRepos(...repoLists) {
+  const reposByKey = new Map()
+
+  for (const repo of repoLists.flat()) {
+    const normalized = normalizeRepo(repo)
+    const existing = reposByKey.get(normalized.key)
+
+    if (!existing || normalized.commits > existing.commits) {
+      reposByKey.set(normalized.key, normalized)
+    }
+  }
+
+  return [...reposByKey.values()]
+}
+
+function cacheRepo(repo, nowIso, since) {
+  const cached = {
+    visibility: repo.isPrivate ? 'private' : 'public',
+    lastSeenAt: nowIso,
+    lastWindow: {
+      from: since,
+      to: nowIso
+    },
+    stats: {
+      commitsLastYear: repo.commits,
+      additionsLastYear: repo.additions,
+      deletionsLastYear: repo.deletions,
+      stars: repo.stars
+    },
+    languages: repo.languages.map(language => ({
+      name: language.name,
+      percentage: Number(language.percentage.toFixed(6))
+    }))
+  }
+
+  if (!repo.isPrivate) {
+    cached.name = repo.name
+    cached.nameWithOwner = repo.nameWithOwner
+    cached.ownerLogin = repo.ownerLogin
+    cached.url = repo.url
+  }
+
+  return cached
+}
+
+function cachedRepoToStats(repo) {
+  return {
+    name: repo.name || null,
+    nameWithOwner: repo.nameWithOwner || null,
+    ownerLogin: repo.ownerLogin || null,
+    url: repo.url || null,
+    isPrivate: repo.visibility !== 'public',
+    stars: repo.stats?.stars || 0,
+    commits: repo.stats?.commitsLastYear || 0,
+    additions: repo.stats?.additionsLastYear || 0,
+    deletions: repo.stats?.deletionsLastYear || 0,
+    languages: repo.languages || []
+  }
+}
+
+function mergeContributionYears(cache, yearlyByYear, nowIso) {
+  const contributionYears = { ...(cache.contributionYears || {}) }
+
+  for (const [year, current] of Object.entries(yearlyByYear)) {
+    const previous = contributionYears[year] || {}
+    contributionYears[year] = {
+      commits: Math.max(previous.commits || 0, current.commits || 0),
+      issues: Math.max(previous.issues || 0, current.issues || 0),
+      prs: Math.max(previous.prs || 0, current.prs || 0),
+      lastSeenAt: nowIso
+    }
+  }
+
+  return contributionYears
+}
+
+function mergeLastYear(cache, current, activeRepos, nowIso, since) {
+  const previous = cache.lastYear || {}
+  const repoCommits = activeRepos.reduce((sum, repo) => sum + repo.commits, 0)
+
+  return {
+    from: since,
+    to: nowIso,
+    commits: Math.max(previous.commits || 0, current.commits || 0, repoCommits),
+    issues: Math.max(previous.issues || 0, current.issues || 0),
+    prs: Math.max(previous.prs || 0, current.prs || 0),
+    lastSeenAt: nowIso
+  }
+}
+
+function updateCache(cache, currentRepos, yearlyByYear, lastYear, nowIso, since) {
+  const repos = { ...(cache.repos || {}) }
+
+  for (const repo of currentRepos) {
+    repos[repo.key] = cacheRepo(repo, nowIso, since)
+  }
+
+  const cachedRepos = Object.values(repos).map(cachedRepoToStats)
+  const activeRepos = cachedRepos.filter(repo => repo.commits > 0)
+
+  return {
+    version: CACHE_VERSION,
+    username: USERNAME,
+    generatedAt: nowIso,
+    lastYear: mergeLastYear(cache, lastYear, activeRepos, nowIso, since),
+    contributionYears: mergeContributionYears(cache, yearlyByYear, nowIso),
+    repos,
+    summary: {
+      knownRepos: Object.keys(repos).length,
+      privateOrRestrictedRepos: cachedRepos.filter(repo => repo.isPrivate).length,
+      publicRepos: cachedRepos.filter(repo => !repo.isPrivate).length
+    }
+  }
+}
+
+function sumContributionYears(contributionYears) {
+  return Object.values(contributionYears).reduce((acc, year) => {
+    acc.commits += year.commits || 0
+    acc.issues += year.issues || 0
+    acc.prs += year.prs || 0
+    return acc
+  }, { commits: 0, issues: 0, prs: 0 })
+}
+
 function topLanguages(repos) {
   const weighted = new Map()
 
@@ -320,11 +583,11 @@ function topLanguages(repos) {
 
 function buildStatsRows(data) {
   const allTimeRows = [
-    `**${formatNumber(data.publicRepos)}** public repos`,
+    `**${formatNumber(data.knownRepos)}** known repos`,
     `**${formatNumber(data.totalCommitsAllTime)}** commits`,
     `**${formatNumber(data.totalIssuesAllTime)}** issues`,
     `**${formatNumber(data.totalPRsAllTime)}** PRs`,
-    `**${formatNumber(data.stars)}** stars`
+    `**${formatNumber(data.stars)}** owned public stars`
   ]
 
   const lastYearRows = [
@@ -355,7 +618,7 @@ function renderTemplate(template, data) {
   const repoTemplate = repoBlock[1].trim()
   const repos = data.topRepos.length > 0
     ? data.topRepos.map(repo => repoTemplate
-      .replace(/{{\s*REPO_NAME\s*}}/g, repo.name)
+      .replace(/{{\s*REPO_NAME\s*}}/g, repo.nameWithOwner)
       .replace(/{{\s*REPO_URL\s*}}/g, repo.url)
       .replace(/{{\s*REPO_COMMITS\s*}}/g, formatNumber(repo.commits))
       .replace(/{{\s*REPO_ADDITIONS\s*}}/g, additionsBadge(repo.additions))
@@ -369,58 +632,80 @@ function renderTemplate(template, data) {
 async function main() {
   const token = await getToken()
   const now = new Date()
+  const nowIso = now.toISOString()
   const sinceDate = new Date(now)
   sinceDate.setFullYear(sinceDate.getFullYear() - 1)
   const since = sinceDate.toISOString()
 
-  const user = await fetchUser(token, since, now.toISOString())
+  const user = await fetchUser(token, since, nowIso)
   const years = user.allYears.contributionYears
-  const yearly = await Promise.all(years.map(year => fetchYearlyContributions(token, year)))
-  const repos = await fetchRepos(token, user.id, since)
+  const yearlyCollections = await Promise.all(years.map(year => fetchYearlyContributions(token, year)))
+  const yearlyByYear = Object.fromEntries(years.map((year, index) => [
+    year,
+    {
+      commits: yearlyCollections[index].totalCommitContributions,
+      issues: yearlyCollections[index].totalIssueContributions,
+      prs: yearlyCollections[index].totalPullRequestContributions
+    }
+  ]))
 
-  const activeRepos = repos
-    .map(repo => ({
-      name: repo.name,
-      url: repo.url,
-      commits: repo.defaultBranchRef?.target?.history?.totalCount || 0,
-      languages: repoLanguages(repo),
-      additions: 0,
-      deletions: 0
-    }))
+  const ownedRepos = await fetchOwnedRepos(token, user.id, since)
+  const contributedRepos = await fetchContributedRepos(token, user.id, since)
+  const currentRepos = mergeCurrentRepos(ownedRepos, contributedRepos)
+  const currentActiveRepos = currentRepos
     .filter(repo => repo.commits > 0)
     .sort((a, b) => b.commits - a.commits)
 
-  const topRepos = activeRepos.slice(0, 10)
-
-  for (const repo of topRepos) {
-    const lineStats = await fetchRepoLineStats(token, repo.name, user.id, since)
-    repo.additions = lineStats.additions
-    repo.deletions = lineStats.deletions
+  for (const repo of currentActiveRepos) {
+    try {
+      const lineStats = await fetchRepoLineStats(token, repo, user.id, since)
+      repo.additions = lineStats.additions
+      repo.deletions = lineStats.deletions
+    } catch (error) {
+      const label = repo.isPrivate ? 'a private or restricted repo' : repo.nameWithOwner
+      console.warn(`Skipping line stats for ${label}.`)
+    }
   }
 
-  const totals = yearly.reduce((acc, collection) => {
-    acc.commits += collection.totalCommitContributions
-    acc.issues += collection.totalIssueContributions
-    acc.prs += collection.totalPullRequestContributions
-    return acc
-  }, { commits: 0, issues: 0, prs: 0 })
+  const cache = updateCache(
+    loadCache(),
+    currentRepos,
+    yearlyByYear,
+    {
+      commits: user.lastYear.totalCommitContributions,
+      issues: user.lastYear.totalIssueContributions,
+      prs: user.lastYear.totalPullRequestContributions
+    },
+    nowIso,
+    since
+  )
+  writeCache(cache)
+
+  const cachedRepos = Object.values(cache.repos).map(cachedRepoToStats)
+  const knownActiveRepos = cachedRepos.filter(repo => repo.commits > 0)
+  const totals = sumContributionYears(cache.contributionYears)
+  const publicTopRepos = currentActiveRepos
+    .filter(repo => !repo.isPrivate)
+    .slice(0, 10)
 
   const data = {
     name: user.name || user.login,
     username: user.login,
     accountAge: yearsSince(user.createdAt),
-    publicRepos: user.repositories.totalCount,
+    knownRepos: cache.summary.knownRepos,
     totalCommitsAllTime: totals.commits,
     totalIssuesAllTime: totals.issues,
     totalPRsAllTime: totals.prs,
-    totalCommitsLastYear: user.lastYear.totalCommitContributions,
-    totalIssuesLastYear: user.lastYear.totalIssueContributions,
-    totalPRsLastYear: user.lastYear.totalPullRequestContributions,
-    totalAdditionsLastYear: topRepos.reduce((sum, repo) => sum + repo.additions, 0),
-    totalDeletionsLastYear: topRepos.reduce((sum, repo) => sum + repo.deletions, 0),
-    stars: repos.reduce((sum, repo) => sum + repo.stargazerCount, 0),
-    topLanguages: topLanguages(activeRepos),
-    topRepos
+    totalCommitsLastYear: cache.lastYear.commits,
+    totalIssuesLastYear: cache.lastYear.issues,
+    totalPRsLastYear: cache.lastYear.prs,
+    totalAdditionsLastYear: knownActiveRepos.reduce((sum, repo) => sum + repo.additions, 0),
+    totalDeletionsLastYear: knownActiveRepos.reduce((sum, repo) => sum + repo.deletions, 0),
+    stars: cachedRepos
+      .filter(repo => !repo.isPrivate && repo.ownerLogin === USERNAME)
+      .reduce((sum, repo) => sum + repo.stars, 0),
+    topLanguages: topLanguages(knownActiveRepos),
+    topRepos: publicTopRepos
   }
 
   data.statsRows = buildStatsRows(data)

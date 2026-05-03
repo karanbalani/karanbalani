@@ -10,19 +10,25 @@ Joined GitHub **9** years ago.
 
 ## Stats
 
-| All Time | Last Year | Top languages (last year) |
-|----------|-----------|---------------------------|
-| **45** public repos | **587** commits | ![Astro 64%](https://img.shields.io/static/v1?style=flat&label=&message=Astro+64%25&color=ff5d01) |
-| **1,002** commits | **2** issues | ![CSS 33%](https://img.shields.io/static/v1?style=flat&label=&message=CSS+33%25&color=563d7c) |
-| **20** issues | **93** PRs | ![JavaScript 3%](https://img.shields.io/static/v1?style=flat&label=&message=JavaScript+3%25&color=f1e05a) |
-| **112** PRs | ![+10,768](https://img.shields.io/static/v1?style=flat&label=&message=%2B10%2C768&color=brightgreen) lines added |  |
-| **51** stars | ![-24,682](https://img.shields.io/static/v1?style=flat&label=&message=-24%2C682&color=red) lines removed |  |
+| All Time | Last Year / Cached | Top languages (readable + cached) |
+|----------|--------------------|-----------------------------------|
+| **84** known repos | **587** commits | ![Rust 40%](https://img.shields.io/static/v1?style=flat&label=&message=Rust+40%25&color=dea584) |
+| **1,002** commits | **2** issues | ![Python 21%](https://img.shields.io/static/v1?style=flat&label=&message=Python+21%25&color=3572a5) |
+| **20** issues | **93** PRs | ![TypeScript 18%](https://img.shields.io/static/v1?style=flat&label=&message=TypeScript+18%25&color=3178c6) |
+| **112** PRs | ![+148,915](https://img.shields.io/static/v1?style=flat&label=&message=%2B148%2C915&color=brightgreen) lines added | ![Go 16%](https://img.shields.io/static/v1?style=flat&label=&message=Go+16%25&color=00add8) |
+| **51** owned public stars | ![-43,888](https://img.shields.io/static/v1?style=flat&label=&message=-43%2C888&color=red) lines removed | ![Shell 6%](https://img.shields.io/static/v1?style=flat&label=&message=Shell+6%25&color=89e051) |
 
-## Most Active Projects (Last Year)
+## Most Active Public Projects (Last Year)
 
-- [ypb-public](https://github.com/balanikaran/ypb-public) - 19 commits, ![+25](https://img.shields.io/static/v1?style=flat&label=&message=%2B25&color=brightgreen) ![-1](https://img.shields.io/static/v1?style=flat&label=&message=-1&color=red)
-- [balanikaran.github.io](https://github.com/balanikaran/balanikaran.github.io) - 15 commits, ![+10,723](https://img.shields.io/static/v1?style=flat&label=&message=%2B10%2C723&color=brightgreen) ![-24,681](https://img.shields.io/static/v1?style=flat&label=&message=-24%2C681&color=red)
-- [balanikaran](https://github.com/balanikaran/balanikaran) - 3 commits, ![+20](https://img.shields.io/static/v1?style=flat&label=&message=%2B20&color=brightgreen) ![0](https://img.shields.io/static/v1?style=flat&label=&message=0&color=red)
+- [ClackHouse/agent](https://github.com/ClackHouse/agent) - 132 commits, ![+49,172](https://img.shields.io/static/v1?style=flat&label=&message=%2B49%2C172&color=brightgreen) ![-8,265](https://img.shields.io/static/v1?style=flat&label=&message=-8%2C265&color=red)
+- [SigNoz/signoz](https://github.com/SigNoz/signoz) - 34 commits, ![+14,550](https://img.shields.io/static/v1?style=flat&label=&message=%2B14%2C550&color=brightgreen) ![-3,437](https://img.shields.io/static/v1?style=flat&label=&message=-3%2C437&color=red)
+- [ClackHouse/cli](https://github.com/ClackHouse/cli) - 22 commits, ![+8,051](https://img.shields.io/static/v1?style=flat&label=&message=%2B8%2C051&color=brightgreen) ![-180](https://img.shields.io/static/v1?style=flat&label=&message=-180&color=red)
+- [balanikaran/ypb-public](https://github.com/balanikaran/ypb-public) - 19 commits, ![+25](https://img.shields.io/static/v1?style=flat&label=&message=%2B25&color=brightgreen) ![-1](https://img.shields.io/static/v1?style=flat&label=&message=-1&color=red)
+- [balanikaran/balanikaran.github.io](https://github.com/balanikaran/balanikaran.github.io) - 15 commits, ![+10,723](https://img.shields.io/static/v1?style=flat&label=&message=%2B10%2C723&color=brightgreen) ![-24,681](https://img.shields.io/static/v1?style=flat&label=&message=-24%2C681&color=red)
+- [ClackHouse/website](https://github.com/ClackHouse/website) - 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat&label=&message=%2B17%2C010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat&label=&message=-580&color=red)
+- [SigNoz/signoz.io](https://github.com/SigNoz/signoz.io) - 4 commits, ![+820](https://img.shields.io/static/v1?style=flat&label=&message=%2B820&color=brightgreen) ![-186](https://img.shields.io/static/v1?style=flat&label=&message=-186&color=red)
+- [ClackHouse/stacks](https://github.com/ClackHouse/stacks) - 4 commits, ![+3,935](https://img.shields.io/static/v1?style=flat&label=&message=%2B3%2C935&color=brightgreen) ![-48](https://img.shields.io/static/v1?style=flat&label=&message=-48&color=red)
+- [balanikaran/balanikaran](https://github.com/balanikaran/balanikaran) - 3 commits, ![+20](https://img.shields.io/static/v1?style=flat&label=&message=%2B20&color=brightgreen) ![0](https://img.shields.io/static/v1?style=flat&label=&message=0&color=red)
 
 ## Connect with me
 
