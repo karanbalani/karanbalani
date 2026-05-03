@@ -31,9 +31,7 @@ function formatNumber(value) {
 function yearsSince(dateString) {
   const createdAt = new Date(dateString)
   const now = new Date()
-  let years = now.getFullYear() - createdAt.getFullYear()
-  const anniversaryThisYear = new Date(now.getFullYear(), createdAt.getMonth(), createdAt.getDate())
-  if (now < anniversaryThisYear) years -= 1
+  const years = now.getFullYear() - createdAt.getFullYear()
   return Math.max(years, 0)
 }
 
