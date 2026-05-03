@@ -14,6 +14,16 @@ Joined GitHub **{{ ACCOUNT_AGE }}** years ago 🚀
 |----------|--------------------|-----------------------------------|
 {{ STATS_ROWS }}
 
+<sub>🔒 GitHub exposes some old private-org work only as account-level restricted totals, so those contributions stay ungrouped unless the org/repo is still readable or was cached earlier.</sub>
+
+## 🏢 Organization Snapshot (Last Year / Cached)
+
+| Organization | Coverage | Activity | Lines | Top languages |
+|--------------|----------|----------|-------|---------------|
+{{ ORG_ROWS }}
+
+{{ FEATURED_ORG_SECTION }}
+
 ## 🚀 Most Active Public Projects (Last Year)
 
 {{ REPO_TEMPLATE_START }}

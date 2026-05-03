@@ -8,6 +8,7 @@ const { execFileSync } = require('child_process')
 const USERNAME = process.env.PROFILE_USERNAME ||
   (process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[0] : 'balanikaran')
 const CACHE_FILE = path.join(__dirname, 'stats-cache.json')
+const CONFIG_FILE = path.join(__dirname, 'profile-config.json')
 const CACHE_VERSION = 1
 
 const LANGUAGE_COLORS = {
@@ -86,7 +87,8 @@ function emptyCache() {
     generatedAt: null,
     lastYear: null,
     contributionYears: {},
-    repos: {}
+    repos: {},
+    orgs: {}
   }
 }
 
@@ -99,7 +101,8 @@ function loadCache() {
       ...emptyCache(),
       ...cache,
       contributionYears: cache.contributionYears || {},
-      repos: cache.repos || {}
+      repos: cache.repos || {},
+      orgs: cache.orgs || {}
     }
   } catch (error) {
     console.warn('Could not read stats-cache.json. Starting with an empty cache.')
@@ -109,6 +112,18 @@ function loadCache() {
 
 function writeCache(cache) {
   fs.writeFileSync(CACHE_FILE, `${JSON.stringify(cache, null, 2)}\n`)
+}
+
+function loadConfig() {
+  if (!fs.existsSync(CONFIG_FILE)) {
+    return {
+      activeProjectIgnore: [],
+      trackedOrganizations: [],
+      featuredOrg: null
+    }
+  }
+
+  return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'))
 }
 
 async function getToken() {
@@ -219,6 +234,56 @@ async function fetchYearlyContributions(token, year) {
   })
 
   return data.user.contributionsCollection
+}
+
+async function fetchOrganization(token, login) {
+  const query = `
+    query($login: String!) {
+      organization(login: $login) {
+        id
+        login
+        name
+        url
+      }
+    }
+  `
+
+  const data = await graphql(token, query, { login })
+  return data.organization
+}
+
+async function fetchOrganizationContributions(token, orgId, from, to) {
+  const query = `
+    query($login: String!, $org: ID!, $from: DateTime!, $to: DateTime!) {
+      user(login: $login) {
+        contributionsCollection(organizationID: $org, from: $from, to: $to) {
+          totalCommitContributions
+          totalIssueContributions
+          totalPullRequestContributions
+          totalPullRequestReviewContributions
+          restrictedContributionsCount
+        }
+      }
+    }
+  `
+
+  const data = await graphql(token, query, {
+    login: USERNAME,
+    org: orgId,
+    from,
+    to
+  })
+
+  return data.user.contributionsCollection
+}
+
+async function fetchOrganizationYearlyContributions(token, orgId, year) {
+  return fetchOrganizationContributions(
+    token,
+    orgId,
+    `${year}-01-01T00:00:00Z`,
+    `${year}-12-31T23:59:59Z`
+  )
 }
 
 async function fetchOwnedRepos(token, userId, since) {
@@ -533,7 +598,7 @@ function mergeLastYear(cache, current, activeRepos, nowIso, since) {
   }
 }
 
-function updateCache(cache, currentRepos, yearlyByYear, lastYear, nowIso, since) {
+function updateCache(cache, currentRepos, yearlyByYear, lastYear, orgSnapshots, nowIso, since) {
   const repos = { ...(cache.repos || {}) }
 
   for (const repo of currentRepos) {
@@ -542,6 +607,7 @@ function updateCache(cache, currentRepos, yearlyByYear, lastYear, nowIso, since)
 
   const cachedRepos = Object.values(repos).map(cachedRepoToStats)
   const activeRepos = cachedRepos.filter(repo => repo.commits > 0)
+  const orgs = mergeOrgSummaries(cache, orgSnapshots, nowIso)
 
   return {
     version: CACHE_VERSION,
@@ -549,11 +615,13 @@ function updateCache(cache, currentRepos, yearlyByYear, lastYear, nowIso, since)
     generatedAt: nowIso,
     lastYear: mergeLastYear(cache, lastYear, activeRepos, nowIso, since),
     contributionYears: mergeContributionYears(cache, yearlyByYear, nowIso),
+    orgs,
     repos,
     summary: {
       knownRepos: Object.keys(repos).length,
       privateOrRestrictedRepos: cachedRepos.filter(repo => repo.isPrivate).length,
-      publicRepos: cachedRepos.filter(repo => !repo.isPrivate).length
+      publicRepos: cachedRepos.filter(repo => !repo.isPrivate).length,
+      trackedOrgs: Object.keys(orgs).length
     }
   }
 }
@@ -569,7 +637,98 @@ function sumContributionYears(contributionYears) {
   }, { commits: 0, issues: 0, prs: 0, reviews: 0, restricted: 0 })
 }
 
-function topLanguages(repos) {
+function normalizeContributionCollection(collection) {
+  return {
+    commits: collection.totalCommitContributions || 0,
+    issues: collection.totalIssueContributions || 0,
+    prs: collection.totalPullRequestContributions || 0,
+    reviews: collection.totalPullRequestReviewContributions || 0,
+    restricted: collection.restrictedContributionsCount || 0
+  }
+}
+
+function buildOrgRepoStats(repos) {
+  const reposByOwner = new Map()
+
+  for (const repo of repos) {
+    if (!repo.ownerLogin || repo.ownerLogin === USERNAME) continue
+    const ownerRepos = reposByOwner.get(repo.ownerLogin) || []
+    ownerRepos.push(repo)
+    reposByOwner.set(repo.ownerLogin, ownerRepos)
+  }
+
+  return new Map([...reposByOwner.entries()].map(([login, ownerRepos]) => [
+    login,
+    {
+      repoCount: ownerRepos.length,
+      publicRepos: ownerRepos.filter(repo => !repo.isPrivate).length,
+      privateRepos: ownerRepos.filter(repo => repo.isPrivate).length,
+      commitsLastYear: ownerRepos.reduce((sum, repo) => sum + repo.commits, 0),
+      additionsLastYear: ownerRepos.reduce((sum, repo) => sum + repo.additions, 0),
+      deletionsLastYear: ownerRepos.reduce((sum, repo) => sum + repo.deletions, 0),
+      languages: topLanguages(ownerRepos.filter(repo => repo.commits > 0), 3)
+    }
+  ]))
+}
+
+function mergeOrgYears(previousYears = {}, currentYears = {}, nowIso) {
+  const years = { ...previousYears }
+
+  for (const [year, current] of Object.entries(currentYears)) {
+    const previous = years[year] || {}
+    years[year] = {
+      commits: Math.max(previous.commits || 0, current.commits || 0),
+      issues: Math.max(previous.issues || 0, current.issues || 0),
+      prs: Math.max(previous.prs || 0, current.prs || 0),
+      reviews: Math.max(previous.reviews || 0, current.reviews || 0),
+      restricted: Math.max(previous.restricted || 0, current.restricted || 0),
+      lastSeenAt: nowIso
+    }
+  }
+
+  return years
+}
+
+function mergeOrgSummary(previous = {}, snapshot, nowIso) {
+  const previousRepoStats = previous.repoStats || {}
+  const currentRepoStats = snapshot.repoStats || {}
+
+  return {
+    login: snapshot.login,
+    name: snapshot.name || previous.name || snapshot.login,
+    url: snapshot.url || previous.url || `https://github.com/${snapshot.login}`,
+    lastSeenAt: nowIso,
+    lastYear: {
+      commits: Math.max(previous.lastYear?.commits || 0, snapshot.lastYear?.commits || 0),
+      issues: Math.max(previous.lastYear?.issues || 0, snapshot.lastYear?.issues || 0),
+      prs: Math.max(previous.lastYear?.prs || 0, snapshot.lastYear?.prs || 0),
+      reviews: Math.max(previous.lastYear?.reviews || 0, snapshot.lastYear?.reviews || 0),
+      restricted: Math.max(previous.lastYear?.restricted || 0, snapshot.lastYear?.restricted || 0)
+    },
+    years: mergeOrgYears(previous.years, snapshot.years, nowIso),
+    repoStats: {
+      repoCount: Math.max(previousRepoStats.repoCount || 0, currentRepoStats.repoCount || 0),
+      publicRepos: Math.max(previousRepoStats.publicRepos || 0, currentRepoStats.publicRepos || 0),
+      privateRepos: Math.max(previousRepoStats.privateRepos || 0, currentRepoStats.privateRepos || 0),
+      commitsLastYear: Math.max(previousRepoStats.commitsLastYear || 0, currentRepoStats.commitsLastYear || 0),
+      additionsLastYear: Math.max(previousRepoStats.additionsLastYear || 0, currentRepoStats.additionsLastYear || 0),
+      deletionsLastYear: Math.max(previousRepoStats.deletionsLastYear || 0, currentRepoStats.deletionsLastYear || 0)
+    },
+    languages: snapshot.languages?.length ? snapshot.languages : previous.languages || []
+  }
+}
+
+function mergeOrgSummaries(cache, orgSnapshots, nowIso) {
+  const orgs = { ...(cache.orgs || {}) }
+
+  for (const snapshot of orgSnapshots) {
+    orgs[snapshot.login] = mergeOrgSummary(orgs[snapshot.login], snapshot, nowIso)
+  }
+
+  return orgs
+}
+
+function topLanguages(repos, topN = 5) {
   const weighted = new Map()
 
   for (const repo of repos) {
@@ -582,7 +741,7 @@ function topLanguages(repos) {
 
   const top = [...weighted.entries()]
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+    .slice(0, topN)
 
   const total = top.reduce((sum, [, value]) => sum + value, 0)
   return top.map(([name, value]) => ({
@@ -619,12 +778,133 @@ function buildStatsRows(data) {
   }).join('\n')
 }
 
+function inlineLanguageBadges(languages) {
+  return languages.length > 0
+    ? languages.map(languageBadge).join(' ')
+    : ''
+}
+
+function buildOrgRows(orgs) {
+  if (orgs.length === 0) {
+    return '| No tracked org activity yet | - | - | - | - |'
+  }
+
+  return orgs.map(org => {
+    const lines = `${additionsBadge(org.repoStats.additionsLastYear)} ${deletionsBadge(org.repoStats.deletionsLastYear)}`
+    const repoCounts = `${formatNumber(org.repoStats.repoCount)} repos (${formatNumber(org.repoStats.publicRepos)} public, ${formatNumber(org.repoStats.privateRepos)} private)`
+    const activity = `🔥 **${formatNumber(org.lastYear.commits)}** commits · 🔀 **${formatNumber(org.lastYear.prs)}** PRs · 👀 **${formatNumber(org.lastYear.reviews)}** reviews`
+    return `| [${org.name}](${org.url}) | ${repoCounts} | ${activity} | ${lines} | ${inlineLanguageBadges(org.languages)} |`
+  }).join('\n')
+}
+
+function buildFeaturedOrgSection(featuredOrg, cachedOrg) {
+  if (!featuredOrg || !cachedOrg) return ''
+
+  const repoStats = cachedOrg.repoStats || {}
+  const lastYear = cachedOrg.lastYear || {}
+  const orgName = featuredOrg.name || cachedOrg.name || cachedOrg.login
+  const githubUrl = featuredOrg.github || cachedOrg.url
+  const websiteUrl = featuredOrg.website
+  const description = featuredOrg.description || 'A project I am currently building.'
+  const lines = `${additionsBadge(repoStats.additionsLastYear)} ${deletionsBadge(repoStats.deletionsLastYear)}`
+  const links = [
+    `[Website](${websiteUrl})`,
+    `[GitHub](${githubUrl})`
+  ].filter(link => !link.includes('(undefined)')).join(' · ')
+
+  return `## 🏠 Current Weekend Project: ${orgName}
+
+${description}
+
+${links}
+
+| Repos | Last Year Activity | Lines | Top languages |
+|-------|--------------------|-------|---------------|
+| 📦 **${formatNumber(repoStats.repoCount)}** tracked repos | 🔥 **${formatNumber(lastYear.commits)}** commits · 🔀 **${formatNumber(lastYear.prs)}** PRs | ${lines} | ${inlineLanguageBadges(cachedOrg.languages || [])} |`
+}
+
+async function buildTrackedOrgSnapshots(token, config, years, since, nowIso, currentRepos) {
+  const trackedLogins = new Set(config.trackedOrganizations || [])
+  if (config.featuredOrg?.login) trackedLogins.add(config.featuredOrg.login)
+
+  const orgRepoStats = buildOrgRepoStats(currentRepos)
+  const snapshots = []
+
+  for (const login of trackedLogins) {
+    let org = null
+    try {
+      org = await fetchOrganization(token, login)
+    } catch (error) {
+      console.warn(`Skipping organization metadata for ${login}.`)
+    }
+
+    const repoStats = orgRepoStats.get(login) || {
+      repoCount: 0,
+      publicRepos: 0,
+      privateRepos: 0,
+      commitsLastYear: 0,
+      additionsLastYear: 0,
+      deletionsLastYear: 0,
+      languages: []
+    }
+
+    const yearsByYear = {}
+    let lastYear = {
+      commits: repoStats.commitsLastYear,
+      issues: 0,
+      prs: 0,
+      reviews: 0,
+      restricted: 0
+    }
+
+    if (org?.id) {
+      try {
+        const lastYearCollection = await fetchOrganizationContributions(token, org.id, since, nowIso)
+        lastYear = {
+          ...normalizeContributionCollection(lastYearCollection),
+          commits: Math.max(lastYearCollection.totalCommitContributions || 0, repoStats.commitsLastYear)
+        }
+
+        for (const year of years) {
+          const collection = await fetchOrganizationYearlyContributions(token, org.id, year)
+          yearsByYear[year] = normalizeContributionCollection(collection)
+        }
+      } catch (error) {
+        console.warn(`Skipping organization contribution totals for ${login}.`)
+      }
+    }
+
+    if (
+      repoStats.repoCount > 0 ||
+      lastYear.commits > 0 ||
+      lastYear.issues > 0 ||
+      lastYear.prs > 0 ||
+      lastYear.reviews > 0 ||
+      lastYear.restricted > 0
+    ) {
+      snapshots.push({
+        login,
+        name: config.featuredOrg?.login === login ? config.featuredOrg.name : org?.name || login,
+        url: org?.url || (config.featuredOrg?.login === login ? config.featuredOrg.github : null) || `https://github.com/${login}`,
+        lastYear,
+        years: yearsByYear,
+        repoStats,
+        languages: repoStats.languages
+      })
+    }
+  }
+
+  return snapshots
+}
+
 function renderTemplate(template, data) {
   let result = template
     .replace(/{{\s*NAME\s*}}/g, data.name)
     .replace(/{{\s*USERNAME\s*}}/g, data.username)
     .replace(/{{\s*ACCOUNT_AGE\s*}}/g, String(data.accountAge))
     .replace(/{{\s*STATS_ROWS\s*}}/g, data.statsRows)
+    .replace(/{{\s*ORG_ROWS\s*}}/g, data.orgRows)
+    .replace(/{{\s*FEATURED_ORG_SECTION\s*}}/g, data.featuredOrgSection)
 
   const repoBlock = result.match(/{{\s*REPO_TEMPLATE_START\s*}}([\s\S]*?){{\s*REPO_TEMPLATE_END\s*}}/)
   if (!repoBlock) return result
@@ -644,6 +924,7 @@ function renderTemplate(template, data) {
 }
 
 async function main() {
+  const config = loadConfig()
   const token = await getToken()
   const now = new Date()
   const nowIso = now.toISOString()
@@ -683,6 +964,15 @@ async function main() {
     }
   }
 
+  const orgSnapshots = await buildTrackedOrgSnapshots(
+    token,
+    config,
+    years,
+    since,
+    nowIso,
+    currentRepos
+  )
+
   const cache = updateCache(
     loadCache(),
     currentRepos,
@@ -694,6 +984,7 @@ async function main() {
       reviews: user.lastYear.totalPullRequestReviewContributions,
       restricted: user.lastYear.restrictedContributionsCount
     },
+    orgSnapshots,
     nowIso,
     since
   )
@@ -702,9 +993,22 @@ async function main() {
   const cachedRepos = Object.values(cache.repos).map(cachedRepoToStats)
   const knownActiveRepos = cachedRepos.filter(repo => repo.commits > 0)
   const totals = sumContributionYears(cache.contributionYears)
+  const activeProjectIgnore = new Set(config.activeProjectIgnore || [])
   const publicTopRepos = currentActiveRepos
     .filter(repo => !repo.isPrivate)
+    .filter(repo => !activeProjectIgnore.has(repo.nameWithOwner))
     .slice(0, 10)
+  const orgsForReadme = Object.values(cache.orgs || {})
+    .filter(org => {
+      const repoStats = org.repoStats || {}
+      const lastYear = org.lastYear || {}
+      return repoStats.repoCount > 0 || lastYear.commits > 0 || lastYear.prs > 0 || lastYear.reviews > 0 || lastYear.restricted > 0
+    })
+    .sort((a, b) => {
+      const aScore = (a.lastYear?.commits || 0) + (a.lastYear?.prs || 0) * 3 + (a.lastYear?.reviews || 0)
+      const bScore = (b.lastYear?.commits || 0) + (b.lastYear?.prs || 0) * 3 + (b.lastYear?.reviews || 0)
+      return bScore - aScore
+    })
 
   const data = {
     name: user.name || user.login,
@@ -727,7 +1031,12 @@ async function main() {
       .filter(repo => !repo.isPrivate && repo.ownerLogin === USERNAME)
       .reduce((sum, repo) => sum + repo.stars, 0),
     topLanguages: topLanguages(knownActiveRepos),
-    topRepos: publicTopRepos
+    topRepos: publicTopRepos,
+    orgRows: buildOrgRows(orgsForReadme),
+    featuredOrgSection: buildFeaturedOrgSection(
+      config.featuredOrg,
+      config.featuredOrg?.login ? cache.orgs?.[config.featuredOrg.login] : null
+    )
   }
 
   data.statsRows = buildStatsRows(data)
