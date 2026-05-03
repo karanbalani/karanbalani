@@ -10,6 +10,8 @@ const USERNAME = process.env.PROFILE_USERNAME ||
 const CACHE_FILE = path.join(__dirname, 'stats-cache.json')
 const CONFIG_FILE = path.join(__dirname, 'profile-config.json')
 const CACHE_VERSION = 1
+const INLINE_BADGE_STYLE = 'flat-square'
+const CTA_BADGE_STYLE = 'for-the-badge'
 
 const LANGUAGE_COLORS = {
   Astro: 'ff5d01',
@@ -47,7 +49,7 @@ function languageColor(language) {
 
 function badge(label, message, color, logo) {
   const params = new URLSearchParams({
-    style: 'flat',
+    style: INLINE_BADGE_STYLE,
     label,
     message,
     color
@@ -808,8 +810,8 @@ function buildFeaturedOrgSection(featuredOrg, cachedOrg) {
   const description = featuredOrg.description || 'A project I am currently building.'
   const lines = `${additionsBadge(repoStats.additionsLastYear)} ${deletionsBadge(repoStats.deletionsLastYear)}`
   const links = [
-    websiteUrl ? `[![Website](https://img.shields.io/badge/Website-111111?style=flat&logo=googlechrome&logoColor=white)](${websiteUrl})` : null,
-    githubUrl ? `[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](${githubUrl})` : null
+    websiteUrl ? `[![Website](https://img.shields.io/badge/Website-111111?style=${CTA_BADGE_STYLE}&logo=googlechrome&logoColor=white)](${websiteUrl})` : null,
+    githubUrl ? `[![GitHub](https://img.shields.io/badge/GitHub-181717?style=${CTA_BADGE_STYLE}&logo=github&logoColor=white)](${githubUrl})` : null
   ].filter(Boolean).join(' ')
 
   return `## 🏠 Current Weekend Project: ${orgName}
