@@ -1,52 +1,56 @@
-# Hi, I'm Karan Balani
+# Hi there, I'm Karan Balani 👋
 
-> Daily forge activity from my own shiplog database.
+Joined GitHub **9** years ago 🚀
 
-## Activity
+## 📊 Stats
 
-| Metric | All time | Last 365 days |
-| ------ | -------: | ------------------------------------: |
+| All Time | Last Year / Cached | Top languages (readable private/public + cached) |
+|----------|--------------------|-----------------------------------|
+| 🔥 **1,112** commits | 🔥 **697** commits | ![Rust 32%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+32%25&color=dea584) |
+| 📋 **21** issues | 📋 **3** issues | ![TypeScript 20%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+20%25&color=3178c6) |
+| 🔀 **123** PRs | 🔀 **104** PRs | ![Python 17%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+17%25&color=3572a5) |
+| 👀 **12** PR reviews | 👀 **5** PR reviews | ![Go 13%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+13%25&color=00add8) |
+| 🔒 **5,101** private/restricted contributions | 🔒 **428** private/restricted contributions | ![JavaScript 9%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+9%25&color=f1e05a) |
+| 📦 **85** known repos | ![+178,957](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B178%2C957&color=brightgreen) lines added | ![Shell 5%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+5%25&color=89e051) |
+| ⭐ **51** owned public stars | ![-52,725](https://img.shields.io/static/v1?style=flat-square&label=&message=-52%2C725&color=red) lines removed | ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
 
-| Commits | 1,067 | 481 |
-| Lines added | 1,121,856 | 178,592 |
-| Lines deleted | 169,112 | 52,356 |
-| Pull requests opened | 234 | 189 |
-| Pull requests merged | 211 | 171 |
-| Pull request reviews | 120 | 113 |
-| Issues opened | 46 | 28 |
-| Issues closed | 32 | 20 |
+## 🏢 Organization Snapshot (Last Year / Cached)
 
-## Top Languages
+| Organization | Coverage | Activity | Lines | Top languages |
+|--------------|----------|----------|-------|---------------|
+| [ClackHouse](https://github.com/ClackHouse) | 6 repos (4 public, 2 private) | 🔥 **172** commits · 🔀 **34** PRs · 👀 **0** reviews | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79%2C756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9%2C073&color=red) | ![Rust 86%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+86%25&color=dea584) ![Shell 10%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+10%25&color=89e051) ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
+| [SigNoz](https://github.com/SigNoz) | 9 repos (2 public, 7 private) | 🔥 **46** commits · 🔀 **54** PRs · 👀 **5** reviews | ![+17,943](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17%2C943&color=brightgreen) ![-3,935](https://img.shields.io/static/v1?style=flat-square&label=&message=-3%2C935&color=red) | ![TypeScript 49%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+49%25&color=3178c6) ![Go 42%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+42%25&color=00add8) ![MDX 9%](https://img.shields.io/static/v1?style=flat-square&label=&message=MDX+9%25&color=555555) |
 
-| Language | Commits |
-| -------- | ------: |
+## 🏠 Current Weekend Project: ClackHouse
 
-| Rust | 154 |
-| TypeScript | 96 |
-| Python | 81 |
-| Go | 47 |
-| JavaScript | 38 |
-| Astro | 25 |
-| MDX | 4 |
+Weekend project I am currently building.
 
-## Organization Activity
+[![Website](https://img.shields.io/badge/Website-111111?style=for-the-badge&logo=googlechrome&logoColor=white)](https://clack.house) [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ClackHouse)
 
-| Organization | Commits | PRs | Reviews | Issues |
-| ------------ | ------: | --: | ------: | -----: |
+| Repos | Last Year Activity | Lines | Top languages |
+|-------|--------------------|-------|---------------|
+| 📦 **6** tracked repos | 🔥 **172** commits · 🔀 **34** PRs | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79%2C756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9%2C073&color=red) | ![Rust 86%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+86%25&color=dea584) ![Shell 10%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+10%25&color=89e051) ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
 
-| ClackHouse | 172 | 35 | 0 | 0 |
-| SigNoz | 46 | 93 | 113 | 24 |
-| ClickHouse | 0 | 0 | 0 | 1 |
+## 🚀 Most Active Public Projects (Last Year)
 
-## Most Active Public Repositories
+- [ClackHouse/agent](https://github.com/ClackHouse/agent) - 🔥 132 commits, ![+49,172](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B49%2C172&color=brightgreen) ![-8,265](https://img.shields.io/static/v1?style=flat-square&label=&message=-8%2C265&color=red)
+- [SigNoz/signoz](https://github.com/SigNoz/signoz) - 🔥 35 commits, ![+16,453](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B16%2C453&color=brightgreen) ![-3,691](https://img.shields.io/static/v1?style=flat-square&label=&message=-3%2C691&color=red)
+- [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 🔥 24 commits, ![+12,164](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B12%2C164&color=brightgreen) ![-852](https://img.shields.io/static/v1?style=flat-square&label=&message=-852&color=red)
+- [ClackHouse/cli](https://github.com/ClackHouse/cli) - 🔥 22 commits, ![+8,051](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B8%2C051&color=brightgreen) ![-180](https://img.shields.io/static/v1?style=flat-square&label=&message=-180&color=red)
+- [karanbalani/balanikaran.github.io](https://github.com/karanbalani/balanikaran.github.io) - 🔥 15 commits, ![+10,723](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B10%2C723&color=brightgreen) ![-24,681](https://img.shields.io/static/v1?style=flat-square&label=&message=-24%2C681&color=red)
+- [ClackHouse/website](https://github.com/ClackHouse/website) - 🔥 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17%2C010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat-square&label=&message=-580&color=red)
+- [SigNoz/signoz.io](https://github.com/SigNoz/signoz.io) - 🔥 4 commits, ![+820](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B820&color=brightgreen) ![-186](https://img.shields.io/static/v1?style=flat-square&label=&message=-186&color=red)
+- [ClackHouse/stacks](https://github.com/ClackHouse/stacks) - 🔥 4 commits, ![+3,935](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B3%2C935&color=brightgreen) ![-48](https://img.shields.io/static/v1?style=flat-square&label=&message=-48&color=red)
 
-- [ClackHouse/agent](https://github.com/ClackHouse/agent) - 132 commits, 24 prs, 0 reviews
-- [karanbalani/karanbalani](https://github.com/karanbalani/karanbalani) - 38 commits, 2 prs, 0 reviews
-- [SigNoz/signoz](https://github.com/SigNoz/signoz) - 35 commits, 50 prs, 109 reviews
-- [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 24 commits, 11 prs, 0 reviews
-- [ClackHouse/cli](https://github.com/ClackHouse/cli) - 22 commits, 5 prs, 0 reviews
-- [karanbalani/ypb-public](https://github.com/karanbalani/ypb-public) - 19 commits, 0 prs, 0 reviews
+## 🤝 Connect with me
 
-## Accounts
+[![Website](https://img.shields.io/badge/Website-111111?style=for-the-badge&logo=googlechrome&logoColor=white)](https://karanbalani.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI%2BPHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMC40NDcgMjAuNDUyaC0zLjU1NHYtNS41NjljMC0xLjMyOC0uMDI3LTMuMDM3LTEuODUyLTMuMDM3LTEuODUzIDAtMi4xMzYgMS40NDUtMi4xMzYgMi45Mzl2NS42NjdIOS4zNTFWOWgzLjQxNHYxLjU2MWguMDQ2Yy40NzctLjkgMS42MzctMS44NSAzLjM3LTEuODUgMy42MDEgMCA0LjI2NyAyLjM3IDQuMjY3IDUuNDU1djYuMjg2ek01LjMzNyA3LjQzM2MtMS4xNDQgMC0yLjA2My0uOTI2LTIuMDYzLTIuMDY1IDAtMS4xMzguOTItMi4wNjMgMi4wNjMtMi4wNjMgMS4xNCAwIDIuMDY0LjkyNSAyLjA2NCAyLjA2MyAwIDEuMTM5LS45MjUgMi4wNjUtMi4wNjQgMi4wNjV6bTEuNzgyIDEzLjAxOUgzLjU1NVY5aDMuNTY0djExLjQ1MnpNMjIuMjI1IDBIMS43NzFDLjc5MiAwIDAgLjc3NCAwIDEuNzI5djIwLjU0MkMwIDIzLjIyNy43OTIgMjQgMS43NzEgMjRoMjAuNDUxQzIzLjIgMjQgMjQgMjMuMjI3IDI0IDIyLjI3MVYxLjcyOUMyNCAuNzc0IDIzLjIgMCAyMi4yMjIgMGguMDAzeiIvPjwvc3ZnPg%3D%3D&logoColor=white)](https://www.linkedin.com/in/balanikaran)
+[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/karanbalani_)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/karanbalanii)
 
-- [github/karanbalani](https://github.com/karanbalani) `age: 8 years`
+<p align="left">
+  <a href="https://u8views.com/github/karanbalani">
+    <img src="https://u8views.com/api/v1/github/profiles/29383381/views/day-week-month-total-count.svg" alt="Karan Balani profile views" />
+  </a>
+</p>
