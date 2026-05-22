@@ -6,20 +6,20 @@ Joined GitHub **9** years ago 🚀
 
 | All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
-| 🔥 **1,166** commits | 🔥 **751** commits | ![Rust 31%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+31%25&color=dea584) |
+| 🔥 **1,172** commits | 🔥 **757** commits | ![Rust 31%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+31%25&color=dea584) |
 | 📋 **21** issues | 📋 **3** issues | ![TypeScript 19%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+19%25&color=3178c6) |
-| 🔀 **123** PRs | 🔀 **104** PRs | ![Python 16%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+16%25&color=3572a5) |
+| 🔀 **124** PRs | 🔀 **105** PRs | ![Python 16%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+16%25&color=3572a5) |
 | 👀 **12** PR reviews | 👀 **5** PR reviews | ![JavaScript 14%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+14%25&color=f1e05a) |
-| 🔒 **5,123** private/restricted contributions | 🔒 **440** private/restricted contributions | ![Go 12%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+12%25&color=00add8) |
-| 📦 **88** known repos | ![+184,385](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B184%2C385&color=brightgreen) lines added | ![Shell 5%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+5%25&color=89e051) |
-| ⭐ **51** owned public stars | ![-57,927](https://img.shields.io/static/v1?style=flat-square&label=&message=-57%2C927&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
+| 🔒 **5,138** private/restricted contributions | 🔒 **447** private/restricted contributions | ![Go 12%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+12%25&color=00add8) |
+| 📦 **89** known repos | ![+186,081](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B186%2C081&color=brightgreen) lines added | ![Shell 5%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+5%25&color=89e051) |
+| ⭐ **51** owned public stars | ![-58,278](https://img.shields.io/static/v1?style=flat-square&label=&message=-58%2C278&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
 | Organization | Coverage | Activity | Lines | Top languages |
 |--------------|----------|----------|-------|---------------|
 | [ClackHouse](https://github.com/ClackHouse) | 6 repos (4 public, 2 private) | 🔥 **172** commits · 🔀 **34** PRs · 👀 **0** reviews | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79%2C756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9%2C073&color=red) | ![Rust 86%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+86%25&color=dea584) ![Shell 10%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+10%25&color=89e051) ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
-| [SigNoz](https://github.com/SigNoz) | 12 repos (2 public, 10 private) | 🔥 **54** commits · 🔀 **54** PRs · 👀 **5** reviews | ![+18,227](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B18%2C227&color=brightgreen) ![-4,084](https://img.shields.io/static/v1?style=flat-square&label=&message=-4%2C084&color=red) | ![TypeScript 48%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+48%25&color=3178c6) ![Go 43%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+43%25&color=00add8) ![MDX 9%](https://img.shields.io/static/v1?style=flat-square&label=&message=MDX+9%25&color=555555) |
+| [SigNoz](https://github.com/SigNoz) | 13 repos (2 public, 11 private) | 🔥 **56** commits · 🔀 **55** PRs · 👀 **5** reviews | ![+19,568](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B19%2C568&color=brightgreen) ![-4,084](https://img.shields.io/static/v1?style=flat-square&label=&message=-4%2C084&color=red) | ![TypeScript 48%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+48%25&color=3178c6) ![Go 43%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+43%25&color=00add8) ![MDX 9%](https://img.shields.io/static/v1?style=flat-square&label=&message=MDX+9%25&color=555555) |
 
 ## 🏠 Current Weekend Project: ClackHouse
 
