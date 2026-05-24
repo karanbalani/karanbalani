@@ -6,13 +6,13 @@ Joined GitHub **9** years ago 🚀
 
 | All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
-| 🔥 **1,183** commits | 🔥 **768** commits | ![Rust 30%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+30%25&color=dea584) |
+| 🔥 **1,189** commits | 🔥 **774** commits | ![Rust 30%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+30%25&color=dea584) |
 | 📋 **21** issues | 📋 **3** issues | ![TypeScript 19%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+19%25&color=3178c6) |
 | 🔀 **124** PRs | 🔀 **105** PRs | ![Python 16%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+16%25&color=3572a5) |
 | 👀 **12** PR reviews | 👀 **5** PR reviews | ![JavaScript 15%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+15%25&color=f1e05a) |
 | 🔒 **5,145** private/restricted contributions | 🔒 **449** private/restricted contributions | ![Go 12%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+12%25&color=00add8) |
-| 📦 **89** known repos | ![+187,275](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B187%2C275&color=brightgreen) lines added | ![Shell 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+4%25&color=89e051) |
-| ⭐ **51** owned public stars | ![-59,448](https://img.shields.io/static/v1?style=flat-square&label=&message=-59%2C448&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
+| 📦 **89** known repos | ![+187,625](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B187%2C625&color=brightgreen) lines added | ![Shell 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+4%25&color=89e051) |
+| ⭐ **51** owned public stars | ![-59,794](https://img.shields.io/static/v1?style=flat-square&label=&message=-59%2C794&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
