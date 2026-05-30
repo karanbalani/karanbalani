@@ -6,13 +6,13 @@ Joined GitHub **9** years ago 🚀
 
 | All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
-| 🔥 **1,310** commits | 🔥 **888** commits | ![Rust 25%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+25%25&color=dea584) |
+| 🔥 **1,311** commits | 🔥 **896** commits | ![Rust 25%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+25%25&color=dea584) |
 | 📋 **21** issues | 📋 **3** issues | ![TypeScript 23%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+23%25&color=3178c6) |
-| 🔀 **162** PRs | 🔀 **142** PRs | ![JavaScript 20%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+20%25&color=f1e05a) |
+| 🔀 **162** PRs | 🔀 **143** PRs | ![JavaScript 20%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+20%25&color=f1e05a) |
 | 👀 **14** PR reviews | 👀 **7** PR reviews | ![Python 14%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+14%25&color=3572a5) |
 | 🔒 **5,155** private/restricted contributions | 🔒 **458** private/restricted contributions | ![Go 11%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+11%25&color=00add8) |
-| 📦 **90** known repos | ![+208,380](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B208%2C380&color=brightgreen) lines added | ![Shell 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+4%25&color=89e051) |
-| ⭐ **51** owned public stars | ![-72,370](https://img.shields.io/static/v1?style=flat-square&label=&message=-72%2C370&color=red) lines removed | ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
+| 📦 **90** known repos | ![+208,735](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B208%2C735&color=brightgreen) lines added | ![Shell 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+4%25&color=89e051) |
+| ⭐ **51** owned public stars | ![-72,710](https://img.shields.io/static/v1?style=flat-square&label=&message=-72%2C710&color=red) lines removed | ![Astro 4%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+4%25&color=ff5d01) |
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
