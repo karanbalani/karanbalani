@@ -12,7 +12,7 @@
     },
     "organizations": {
       "mode": "many",
-      "sql": "WITH account_scope AS (SELECT id FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), org_rows AS (SELECT COALESCE(o.display_name, o.external_login, r.owner_login) AS organization, COALESCE(o.website_url, 'https://github.com/' || r.owner_login) AS web_url, COUNT(DISTINCT r.id)::bigint AS coverage, COALESCE(SUM(d.commits), 0)::bigint AS commits, COALESCE(SUM(d.prs_opened), 0)::bigint AS prs, COALESCE(SUM(COALESCE(d.lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(d.lines_deleted, 0)), 0)::bigint AS lines_removed FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id JOIN repositories r ON r.id = d.repository_id LEFT JOIN organizations o ON o.id = r.organization_id WHERE r.organization_id IS NOT NULL AND d.activity_on >= CURRENT_DATE - INTERVAL '365 days' GROUP BY COALESCE(o.display_name, o.external_login, r.owner_login), COALESCE(o.website_url, 'https://github.com/' || r.owner_login) HAVING COALESCE(SUM(d.commits), 0) + COALESCE(SUM(d.prs_opened), 0) + COALESCE(SUM(COALESCE(d.lines_added, 0)) + SUM(COALESCE(d.lines_deleted, 0)), 0) > 0) SELECT organization, web_url, to_char(coverage, 'FM999G999G999G990') || ' repos' AS coverage, to_char(commits, 'FM999G999G999G990') AS commits, to_char(prs, 'FM999G999G999G990') AS prs, '+' || to_char(lines_added, 'FM999G999G999G990') || ' / -' || to_char(lines_removed, 'FM999G999G999G990') AS lines FROM org_rows ORDER BY commits DESC, prs DESC, organization ASC LIMIT 8"
+      "sql": "WITH account_scope AS (SELECT id FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), org_rows AS (SELECT COALESCE(o.display_name, o.external_login, r.owner_login) AS organization, COALESCE(o.website_url, 'https://github.com/' || r.owner_login) AS web_url, COUNT(DISTINCT r.id)::bigint AS coverage, COALESCE(SUM(d.commits), 0)::bigint AS commits, COALESCE(SUM(d.prs_opened), 0)::bigint AS prs, COALESCE(SUM(COALESCE(d.lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(d.lines_deleted, 0)), 0)::bigint AS lines_deleted FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id JOIN repositories r ON r.id = d.repository_id LEFT JOIN organizations o ON o.id = r.organization_id WHERE r.organization_id IS NOT NULL AND d.activity_on >= CURRENT_DATE - INTERVAL '365 days' GROUP BY COALESCE(o.display_name, o.external_login, r.owner_login), COALESCE(o.website_url, 'https://github.com/' || r.owner_login) HAVING COALESCE(SUM(d.commits), 0) + COALESCE(SUM(d.prs_opened), 0) + COALESCE(SUM(COALESCE(d.lines_added, 0)) + SUM(COALESCE(d.lines_deleted, 0)), 0) > 0) SELECT organization, web_url, to_char(coverage, 'FM999G999G999G990') || ' repos' AS coverage, to_char(commits, 'FM999G999G999G990') AS commits, to_char(prs, 'FM999G999G999G990') AS prs, to_char(lines_added, 'FM999G999G999G990') AS lines_added, to_char(lines_deleted, 'FM999G999G999G990') AS lines_deleted FROM org_rows ORDER BY commits DESC, prs DESC, organization ASC LIMIT 8;"
     },
     "active_projects": {
       "mode": "many",
@@ -83,7 +83,7 @@
         },
         {
           "label": "Lines",
-          "value": "{{ lines }}"
+          "value": "![+{{ lines_added }}](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B{{ lines_added }}&color=brightgreen) ![-{{ lines_deleted }}](https://img.shields.io/static/v1?style=flat-square&label=&message=-{{ lines_deleted }}&color=red)"
         }
       ],
       "visibleWhen": {
