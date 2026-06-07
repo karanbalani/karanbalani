@@ -19,8 +19,8 @@
 
 | Org | Coverage | Commits | PRs | Lines |
 | --- | --- | --- | --- | --- |
-| [SigNoz](https://signoz.io/) | 14 repos | 69 | 134 | +21,599 / -4,143 |
-| [ClackHouse](https://clack.house) | 6 repos | 172 | 35 | +79,756 / -9,073 |
+| [SigNoz](https://signoz.io/) | 14 repos | 69 | 134 | ![+21,599](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B21,599&color=brightgreen) ![-4,143](https://img.shields.io/static/v1?style=flat-square&label=&message=-4,143&color=red) |
+| [ClackHouse](https://clack.house) | 6 repos | 172 | 35 | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79,756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9,073&color=red) |
 
 ## 🚀 Most Active Public Projects (Last Year)
 
