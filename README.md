@@ -6,13 +6,13 @@ Joined GitHub **9** years ago 🚀
 
 | All Time | Last Year / Cached | Top languages (readable private/public + cached) |
 |----------|--------------------|-----------------------------------|
-| 🔥 **1,561** commits | 🔥 **1,146** commits | ![JavaScript 41%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+41%25&color=f1e05a) |
-| 📋 **21** issues | 📋 **3** issues | ![TypeScript 18%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+18%25&color=3178c6) |
-| 🔀 **173** PRs | 🔀 **154** PRs | ![Rust 18%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+18%25&color=dea584) |
+| 🔥 **1,564** commits | 🔥 **1,149** commits | ![JavaScript 41%](https://img.shields.io/static/v1?style=flat-square&label=&message=JavaScript+41%25&color=f1e05a) |
+| 📋 **21** issues | 📋 **3** issues | ![TypeScript 19%](https://img.shields.io/static/v1?style=flat-square&label=&message=TypeScript+19%25&color=3178c6) |
+| 🔀 **176** PRs | 🔀 **157** PRs | ![Rust 18%](https://img.shields.io/static/v1?style=flat-square&label=&message=Rust+18%25&color=dea584) |
 | 👀 **14** PR reviews | 👀 **7** PR reviews | ![Python 10%](https://img.shields.io/static/v1?style=flat-square&label=&message=Python+10%25&color=3572a5) |
 | 🔒 **5,169** private/restricted contributions | 🔒 **468** private/restricted contributions | ![Go 8%](https://img.shields.io/static/v1?style=flat-square&label=&message=Go+8%25&color=00add8) |
-| 📦 **91** known repos | ![+258,871](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B258%2C871&color=brightgreen) lines added | ![Shell 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+3%25&color=89e051) |
-| ⭐ **51** owned public stars | ![-113,569](https://img.shields.io/static/v1?style=flat-square&label=&message=-113%2C569&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
+| 📦 **91** known repos | ![+259,887](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B259%2C887&color=brightgreen) lines added | ![Shell 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Shell+3%25&color=89e051) |
+| ⭐ **51** owned public stars | ![-114,175](https://img.shields.io/static/v1?style=flat-square&label=&message=-114%2C175&color=red) lines removed | ![Astro 3%](https://img.shields.io/static/v1?style=flat-square&label=&message=Astro+3%25&color=ff5d01) |
 
 ## 🏢 Organization Snapshot (Last Year / Cached)
 
@@ -34,11 +34,11 @@ Weekend project I am currently building.
 ## 🚀 Most Active Public Projects (Last Year)
 
 - [ClackHouse/agent](https://github.com/ClackHouse/agent) - 🔥 132 commits, ![+49,172](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B49%2C172&color=brightgreen) ![-8,265](https://img.shields.io/static/v1?style=flat-square&label=&message=-8%2C265&color=red)
-- [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 🔥 74 commits, ![+27,491](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B27%2C491&color=brightgreen) ![-5,270](https://img.shields.io/static/v1?style=flat-square&label=&message=-5%2C270&color=red)
+- [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 🔥 75 commits, ![+27,540](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B27%2C540&color=brightgreen) ![-5,305](https://img.shields.io/static/v1?style=flat-square&label=&message=-5%2C305&color=red)
 - [SigNoz/signoz](https://github.com/SigNoz/signoz) - 🔥 38 commits, ![+16,519](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B16%2C519&color=brightgreen) ![-3,701](https://img.shields.io/static/v1?style=flat-square&label=&message=-3%2C701&color=red)
 - [ClackHouse/cli](https://github.com/ClackHouse/cli) - 🔥 22 commits, ![+8,051](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B8%2C051&color=brightgreen) ![-180](https://img.shields.io/static/v1?style=flat-square&label=&message=-180&color=red)
 - [ClackHouse/website](https://github.com/ClackHouse/website) - 🔥 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17%2C010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat-square&label=&message=-580&color=red)
-- [karanbalani/shiplog-site](https://github.com/karanbalani/shiplog-site) - 🔥 4 commits, ![+5,082](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B5%2C082&color=brightgreen) ![-167](https://img.shields.io/static/v1?style=flat-square&label=&message=-167&color=red)
+- [karanbalani/shiplog-site](https://github.com/karanbalani/shiplog-site) - 🔥 5 commits, ![+5,683](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B5%2C683&color=brightgreen) ![-386](https://img.shields.io/static/v1?style=flat-square&label=&message=-386&color=red)
 - [SigNoz/signoz.io](https://github.com/SigNoz/signoz.io) - 🔥 4 commits, ![+820](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B820&color=brightgreen) ![-186](https://img.shields.io/static/v1?style=flat-square&label=&message=-186&color=red)
 - [ClackHouse/stacks](https://github.com/ClackHouse/stacks) - 🔥 4 commits, ![+3,935](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B3%2C935&color=brightgreen) ![-48](https://img.shields.io/static/v1?style=flat-square&label=&message=-48&color=red)
 - [SigNoz/signoz-otel-collector](https://github.com/SigNoz/signoz-otel-collector) - 🔥 3 commits, ![+102](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B102&color=brightgreen) ![-28](https://img.shields.io/static/v1?style=flat-square&label=&message=-28&color=red)
