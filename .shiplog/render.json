@@ -47,7 +47,7 @@
           "value": "{{ all_time }}"
         },
         {
-          "label": "Last 365 days",
+          "label": "Last 365 Days",
           "value": "{{ last_365_days }}"
         }
       ]
@@ -94,7 +94,7 @@
     {
       "type": "heading",
       "level": 2,
-      "text": "🚀 Most Active Public Projects (Last Year)",
+      "text": "🚀 Most Active Public Projects (Last 365 Days)",
       "visibleWhen": {
         "query": "active_projects",
         "hasRows": true
