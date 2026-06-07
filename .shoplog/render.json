@@ -1,0 +1,130 @@
+{
+  "$schema": "https://shiplog.karanbalani.tech/schemas/render.config.schema.json",
+  "version": 1,
+  "queries": {
+    "intro": {
+      "mode": "one",
+      "sql": "WITH account_scope AS (SELECT id, external_login, external_url, external_created_at FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), tenure AS (SELECT external_login, external_url, GREATEST(0, EXTRACT(YEAR FROM age(CURRENT_DATE, external_created_at::date))::int) AS github_years FROM account_scope) SELECT external_login AS github_login, COALESCE(external_url, 'https://github.com/' || external_login) AS github_url, CASE WHEN github_years = 1 THEN '1 year' ELSE github_years::text || ' years' END AS github_tenure, github_years::text || '%20years' AS github_years_badge FROM tenure"
+    },
+    "snapshot": {
+      "mode": "many",
+      "sql": "WITH account_scope AS (SELECT id, external_login FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), user_all AS (SELECT COALESCE(SUM(COALESCE(total_commit_contributions, 0)), 0)::bigint AS commits, COALESCE(SUM(COALESCE(total_issue_contributions, 0)), 0)::bigint AS issues, COALESCE(SUM(COALESCE(total_pull_request_contributions, 0)), 0)::bigint AS prs, COALESCE(SUM(COALESCE(total_commit_contributions, 0) + COALESCE(total_issue_contributions, 0) + COALESCE(total_pull_request_contributions, 0) + COALESCE(total_pull_request_review_contributions, 0) + COALESCE(restricted_contributions_count, 0)), 0)::bigint AS total_contributions FROM daily_user_summary s JOIN account_scope a ON a.id = s.account_id), user_recent AS (SELECT COALESCE(SUM(COALESCE(total_commit_contributions, 0)), 0)::bigint AS commits, COALESCE(SUM(COALESCE(total_issue_contributions, 0)), 0)::bigint AS issues, COALESCE(SUM(COALESCE(total_pull_request_contributions, 0)), 0)::bigint AS prs, COALESCE(SUM(COALESCE(total_commit_contributions, 0) + COALESCE(total_issue_contributions, 0) + COALESCE(total_pull_request_contributions, 0) + COALESCE(total_pull_request_review_contributions, 0) + COALESCE(restricted_contributions_count, 0)), 0)::bigint AS total_contributions FROM daily_user_summary s JOIN account_scope a ON a.id = s.account_id WHERE s.activity_on >= CURRENT_DATE - INTERVAL '365 days'), repo_all AS (SELECT COALESCE(SUM(COALESCE(lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(lines_deleted, 0)), 0)::bigint AS lines_removed, COUNT(DISTINCT repository_id)::bigint AS known_repos FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id), repo_recent AS (SELECT COALESCE(SUM(COALESCE(lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(lines_deleted, 0)), 0)::bigint AS lines_removed, COUNT(DISTINCT repository_id)::bigint AS known_repos FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id WHERE d.activity_on >= CURRENT_DATE - INTERVAL '365 days'), latest_snapshots AS (SELECT repository_id, MAX(captured_on) AS captured_on FROM repository_snapshots GROUP BY repository_id), owned_stars AS (SELECT COALESCE(SUM(COALESCE(rs.star_count, 0)), 0)::bigint AS stars FROM repositories r JOIN latest_snapshots latest ON latest.repository_id = r.id JOIN repository_snapshots rs ON rs.repository_id = latest.repository_id AND rs.captured_on = latest.captured_on JOIN account_scope a ON lower(a.external_login) = lower(r.owner_login) WHERE r.provider = 'github' AND r.redacted = false), owned_recent_stars AS (SELECT COALESCE(SUM(COALESCE(rs.star_count, 0)), 0)::bigint AS stars FROM repositories r JOIN latest_snapshots latest ON latest.repository_id = r.id JOIN repository_snapshots rs ON rs.repository_id = latest.repository_id AND rs.captured_on = latest.captured_on JOIN account_scope a ON lower(a.external_login) = lower(r.owner_login) WHERE r.provider = 'github' AND r.redacted = false AND EXISTS (SELECT 1 FROM daily_repository_activity d WHERE d.repository_id = r.id AND d.account_id = a.id AND d.activity_on >= CURRENT_DATE - INTERVAL '365 days')) SELECT metric, all_time, last_365_days FROM user_all ua, user_recent ur, repo_all ra, repo_recent rr, owned_stars os, owned_recent_stars ors, LATERAL (VALUES ('🔥 Commits', to_char(ua.commits, 'FM999G999G999G990'), to_char(ur.commits, 'FM999G999G999G990')), ('📝 Issues', to_char(ua.issues, 'FM999G999G999G990'), to_char(ur.issues, 'FM999G999G999G990')), ('🔀 PRs', to_char(ua.prs, 'FM999G999G999G990'), to_char(ur.prs, 'FM999G999G999G990')), ('🎉 Total contributions', to_char(ua.total_contributions, 'FM999G999G999G990'), to_char(ur.total_contributions, 'FM999G999G999G990')), ('➕ Lines added', to_char(ra.lines_added, 'FM999G999G999G990'), to_char(rr.lines_added, 'FM999G999G999G990')), ('➖ Lines removed', to_char(ra.lines_removed, 'FM999G999G999G990'), to_char(rr.lines_removed, 'FM999G999G999G990')), ('📦 Known repos', to_char(ra.known_repos, 'FM999G999G999G990'), to_char(rr.known_repos, 'FM999G999G999G990')), ('⭐️ Owned stars', to_char(os.stars, 'FM999G999G999G990'), to_char(ors.stars, 'FM999G999G999G990'))) AS rows(metric, all_time, last_365_days)"
+    },
+    "organizations": {
+      "mode": "many",
+      "sql": "WITH account_scope AS (SELECT id FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), org_rows AS (SELECT COALESCE(o.display_name, o.external_login, r.owner_login) AS organization, COALESCE(o.website_url, 'https://github.com/' || r.owner_login) AS web_url, COUNT(DISTINCT r.id)::bigint AS coverage, COALESCE(SUM(d.commits), 0)::bigint AS commits, COALESCE(SUM(d.prs_opened), 0)::bigint AS prs, COALESCE(SUM(COALESCE(d.lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(d.lines_deleted, 0)), 0)::bigint AS lines_removed FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id JOIN repositories r ON r.id = d.repository_id LEFT JOIN organizations o ON o.id = r.organization_id WHERE r.organization_id IS NOT NULL AND d.activity_on >= CURRENT_DATE - INTERVAL '365 days' GROUP BY COALESCE(o.display_name, o.external_login, r.owner_login), COALESCE(o.website_url, 'https://github.com/' || r.owner_login) HAVING COALESCE(SUM(d.commits), 0) + COALESCE(SUM(d.prs_opened), 0) + COALESCE(SUM(COALESCE(d.lines_added, 0)) + SUM(COALESCE(d.lines_deleted, 0)), 0) > 0) SELECT organization, web_url, to_char(coverage, 'FM999G999G999G990') || ' repos' AS coverage, to_char(commits, 'FM999G999G999G990') AS commits, to_char(prs, 'FM999G999G999G990') AS prs, '+' || to_char(lines_added, 'FM999G999G999G990') || ' / -' || to_char(lines_removed, 'FM999G999G999G990') AS lines FROM org_rows ORDER BY commits DESC, prs DESC, organization ASC LIMIT 8"
+    },
+    "active_projects": {
+      "mode": "many",
+      "sql": "WITH account_scope AS (SELECT id FROM accounts WHERE provider = 'github' ORDER BY id LIMIT 1), project_rows AS (SELECT r.full_name, r.web_url, COALESCE(SUM(d.commits), 0)::bigint AS commits, COALESCE(SUM(COALESCE(d.lines_added, 0)), 0)::bigint AS lines_added, COALESCE(SUM(COALESCE(d.lines_deleted, 0)), 0)::bigint AS lines_removed FROM daily_repository_activity d JOIN account_scope a ON a.id = d.account_id JOIN repositories r ON r.id = d.repository_id WHERE d.activity_on >= CURRENT_DATE - INTERVAL '365 days' AND r.visibility = 'public' AND r.redacted = false GROUP BY r.id, r.full_name, r.web_url HAVING COALESCE(SUM(d.commits), 0) + COALESCE(SUM(COALESCE(d.lines_added, 0)) + SUM(COALESCE(d.lines_deleted, 0)), 0) > 0) SELECT full_name, web_url, to_char(commits, 'FM999G999G999G990') AS commits, to_char(lines_added, 'FM999G999G999G990') AS lines_added, to_char(lines_removed, 'FM999G999G999G990') AS lines_removed FROM project_rows ORDER BY commits DESC, lines_added + lines_removed DESC, full_name ASC LIMIT 10"
+    }
+  },
+  "markdown": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Hey there! I am Karan Balani. 👋"
+    },
+    {
+      "type": "paragraph",
+      "text": "Joined GitHub {{ intro.github_tenure }} ago."
+    },
+    {
+      "type": "rawMarkdown",
+      "content": "[![GitHub](https://img.shields.io/badge/GitHub-{{ intro.github_login }}-111111?style=flat-square&logo=github&logoColor=white)]({{ intro.github_url }}) [![GitHub tenure](https://img.shields.io/badge/Joined-{{ intro.github_years_badge }}%20ago-111111?style=flat-square)]({{ intro.github_url }})"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "📊 Snapshot"
+    },
+    {
+      "type": "table",
+      "query": "snapshot",
+      "columns": [
+        {
+          "label": "Metric",
+          "value": "{{ metric }}"
+        },
+        {
+          "label": "All Time",
+          "value": "{{ all_time }}"
+        },
+        {
+          "label": "Last 365 days",
+          "value": "{{ last_365_days }}"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "🏢 Organization Snapshot",
+      "visibleWhen": {
+        "query": "organizations",
+        "hasRows": true
+      }
+    },
+    {
+      "type": "table",
+      "query": "organizations",
+      "columns": [
+        {
+          "label": "Org",
+          "value": "[{{ organization }}]({{ web_url }})"
+        },
+        {
+          "label": "Coverage",
+          "value": "{{ coverage }}"
+        },
+        {
+          "label": "Commits",
+          "value": "{{ commits }}"
+        },
+        {
+          "label": "PRs",
+          "value": "{{ prs }}"
+        },
+        {
+          "label": "Lines",
+          "value": "{{ lines }}"
+        }
+      ],
+      "visibleWhen": {
+        "query": "organizations",
+        "hasRows": true
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "🚀 Most Active Public Projects (Last Year)",
+      "visibleWhen": {
+        "query": "active_projects",
+        "hasRows": true
+      }
+    },
+    {
+      "type": "repeat",
+      "query": "active_projects",
+      "template": "[{{ full_name }}]({{ web_url }}) - 🔥 {{ commits }} commits, +{{ lines_added }} -{{ lines_removed }}",
+      "visibleWhen": {
+        "query": "active_projects",
+        "hasRows": true
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "🤝 Connect with me"
+    },
+    {
+      "type": "rawMarkdown",
+      "content": "[![Website](https://img.shields.io/badge/Website-111111?style=for-the-badge&logo=googlechrome&logoColor=white)](https://karanbalani.com)\n[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI%2BPHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMC40NDcgMjAuNDUyaC0zLjU1NHYtNS41NjljMC0xLjMyOC0uMDI3LTMuMDM3LTEuODUyLTMuMDM3LTEuODUzIDAtMi4xMzYgMS40NDUtMi4xMzYgMi45Mzl2NS42NjdIOS4zNTFWOWgzLjQxNHYxLjU2MWguMDQ2Yy40NzctLjkgMS42MzctMS44NSAzLjM3LTEuODUgMy42MDEgMCA0LjI2NyAyLjM3IDQuMjY3IDUuNDU1djYuMjg2ek01LjMzNyA3LjQzM2MtMS4xNDQgMC0yLjA2My0uOTI2LTIuMDYzLTIuMDY1IDAtMS4xMzguOTItMi4wNjMgMi4wNjMtMi4wNjMgMS4xNCAwIDIuMDY0LjkyNSAyLjA2NCAyLjA2MyAwIDEuMTM5LS45MjUgMi4wNjUtMi4wNjQgMi4wNjV6bTEuNzgyIDEzLjAxOUgzLjU1NVY5aDMuNTY0djExLjQ1MnpNMjIuMjI1IDBIMS43NzFDLjc5MiAwIDAgLjc3NCAwIDEuNzI5djIwLjU0MkMwIDIzLjIyNy43OTIgMjQgMS43NzEgMjRoMjAuNDUxQzIzLjIgMjQgMjQgMjMuMjI3IDI0IDIyLjI3MVYxLjcyOUMyNCAuNzc0IDIzLjIgMCAyMi4yMjIgMGguMDAzeiIvPjwvc3ZnPg%3D%3D&logoColor=white)](https://www.linkedin.com/in/balanikaran)\n[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/karanbalani_)\n[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/karanbalanii)"
+    },
+    {
+      "type": "rawMarkdown",
+      "content": "<p align=\"left\">\n  <a href=\"https://u8views.com/github/karanbalani\">\n    <img src=\"https://u8views.com/api/v1/github/profiles/29383381/views/day-week-month-total-count.svg\" alt=\"Karan Balani profile views\" />\n  </a>\n</p>"
+    }
+  ]
+}
