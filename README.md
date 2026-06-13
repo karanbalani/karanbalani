@@ -6,12 +6,12 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Commits | 2,496 | 1,750 |
+| 🔥 Commits | 2,508 | 1,762 |
 | 📝 Issues | 76 | 48 |
-| 🔀 PRs | 446 | 346 |
-| 🎉 Total contributions | 7,629 | 2,153 |
-| ➕ Lines added | 1,191,928 | 262,412 |
-| ➖ Lines removed | 229,155 | 115,263 |
+| 🔀 PRs | 448 | 348 |
+| 🎉 Total contributions | 7,643 | 2,167 |
+| ➕ Lines added | 1,191,935 | 262,419 |
+| ➖ Lines removed | 229,162 | 115,270 |
 | 📦 Known repos | 101 | 37 |
 | ⭐️ Owned stars | 47 | 0 |
 
@@ -19,7 +19,7 @@
 
 | Org | Coverage | Commits | PRs | Lines |
 | --- | --- | --- | --- | --- |
-| [SigNoz](https://signoz.io/) | 14 repos | 75 | 141 | ![+22,616](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B22,616&color=brightgreen) ![-4,268](https://img.shields.io/static/v1?style=flat-square&label=&message=-4,268&color=red) |
+| [SigNoz](https://signoz.io/) | 14 repos | 75 | 142 | ![+22,616](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B22,616&color=brightgreen) ![-4,268](https://img.shields.io/static/v1?style=flat-square&label=&message=-4,268&color=red) |
 | [ClackHouse](https://clack.house) | 6 repos | 172 | 35 | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79,756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9,073&color=red) |
 
 ## 🚀 Most Active Public Projects (Last 365 Days)
