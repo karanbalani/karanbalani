@@ -6,12 +6,12 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Commits | 2,529 | 1,783 |
-| 📝 Issues | 76 | 48 |
-| 🔀 PRs | 448 | 348 |
-| 🎉 Total contributions | 7,664 | 2,188 |
-| ➕ Lines added | 1,191,945 | 262,429 |
-| ➖ Lines removed | 229,172 | 115,280 |
+| 🔥 Commits | 2,507 | 1,761 |
+| 📝 Issues | 37 | 16 |
+| 🔀 PRs | 360 | 263 |
+| 🎉 Total contributions | 7,677 | 2,201 |
+| ➕ Lines added | 1,191,949 | 262,433 |
+| ➖ Lines removed | 229,176 | 115,284 |
 | 📦 Known repos | 101 | 37 |
 | ⭐️ Owned stars | 47 | 0 |
 
