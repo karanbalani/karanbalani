@@ -1,9 +1,0 @@
-{
-  "name": "profile-readme-generator",
-  "version": "1.0.0",
-  "description": "Generate GitHub profile README stats",
-  "main": "generate-stats.js",
-  "scripts": {
-    "generate": "node generate-stats.js"
-  }
-}
