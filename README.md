@@ -6,15 +6,15 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Captured commits | 2,019 | 1,441 |
+| 🔥 Captured commits | 2,025 | 1,447 |
 | 📝 Captured issues | 60 | 42 |
 | 🔀 Captured PRs | 334 | 289 |
 | 👀 PR reviews | 134 | 127 |
-| 🎉 Total contributions | 7,026 (**4,747 Private/Restricted**) | 1,550 (**142 Private/Restricted**) |
-| ➕ Lines added | 1,192,153 | 262,637 |
-| ➖ Lines removed | 229,323 | 115,431 |
-| 📦 Known repos | 101 | 37 |
-| ⭐️ Owned stars | 47 | 0 |
+| 🎉 Total contributions | 7,034 (**4,747 Private/Restricted**) | 1,558 (**142 Private/Restricted**) |
+| ➕ Lines added | 1,192,391 | 262,875 |
+| ➖ Lines removed | 229,434 | 115,542 |
+| 📦 Known repos | 101 | 38 |
+| ⭐️ Owned stars | 47 | 3 |
 
 ## 🏢 Organization Snapshot
 
@@ -31,10 +31,9 @@
 📦 [ClackHouse/stacks](https://github.com/ClackHouse/stacks) - 🔥 4 commits, ![+3,935](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B3,935&color=brightgreen) ![-48](https://img.shields.io/static/v1?style=flat-square&label=&message=-48&color=red)  
 📦 [SigNoz/signoz](https://github.com/SigNoz/signoz) - 🔥 39 commits, ![+16,812](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B16,812&color=brightgreen) ![-3,721](https://img.shields.io/static/v1?style=flat-square&label=&message=-3,721&color=red)  
 📦 [SigNoz/signoz-otel-collector](https://github.com/SigNoz/signoz-otel-collector) - 🔥 3 commits, ![+102](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B102&color=brightgreen) ![-28](https://img.shields.io/static/v1?style=flat-square&label=&message=-28&color=red)  
-📦 [ClackHouse/cli](https://github.com/ClackHouse/cli) - 🔥 22 commits, ![+8,051](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B8,051&color=brightgreen) ![-180](https://img.shields.io/static/v1?style=flat-square&label=&message=-180&color=red)  
 📦 [karanbalani/sand-browse](https://github.com/karanbalani/sand-browse) - 🔥 16 commits, ![+11,692](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B11,692&color=brightgreen) ![-10](https://img.shields.io/static/v1?style=flat-square&label=&message=-10&color=red)  
-📦 [ClackHouse/agent](https://github.com/ClackHouse/agent) - 🔥 132 commits, ![+49,172](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B49,172&color=brightgreen) ![-8,265](https://img.shields.io/static/v1?style=flat-square&label=&message=-8,265&color=red)  
-📦 [ClackHouse/website](https://github.com/ClackHouse/website) - 🔥 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17,010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat-square&label=&message=-580&color=red)
+📦 [ClackHouse/website](https://github.com/ClackHouse/website) - 🔥 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17,010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat-square&label=&message=-580&color=red)  
+📦 [karanbalani/dotfiles](https://github.com/karanbalani/dotfiles) - 🔥 1 commits, ![+234](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B234&color=brightgreen) ![-107](https://img.shields.io/static/v1?style=flat-square&label=&message=-107&color=red)
 
 ## 🤝 Connect with me
 
