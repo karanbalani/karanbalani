@@ -6,13 +6,13 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Captured commits | 2,154 | 1,575 |
+| 🔥 Captured commits | 2,160 | 1,581 |
 | 📝 Captured issues | 60 | 42 |
-| 🔀 Captured PRs | 334 | 289 |
+| 🔀 Captured PRs | 335 | 290 |
 | 👀 PR reviews | 136 | 129 |
-| 🎉 Total contributions | 7,164 (**4,747 Private/Restricted**) | 1,688 (**142 Private/Restricted**) |
-| ➕ Lines added | 1,193,095 | 263,572 |
-| ➖ Lines removed | 229,516 | 115,617 |
+| 🎉 Total contributions | 7,169 (**4,747 Private/Restricted**) | 1,693 (**142 Private/Restricted**) |
+| ➕ Lines added | 1,198,519 | 268,996 |
+| ➖ Lines removed | 229,752 | 115,853 |
 | 📦 Known repos | 102 | 38 |
 | ⭐️ Owned stars | 47 | 3 |
 
@@ -25,7 +25,7 @@
 
 ## 🚀 Most Active Public Projects (Last 365 Days)
 
-📦 [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 🔥 75 commits, ![+27,540](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B27,540&color=brightgreen) ![-5,305](https://img.shields.io/static/v1?style=flat-square&label=&message=-5,305&color=red)  
+📦 [karanbalani/shiplog](https://github.com/karanbalani/shiplog) - 🔥 77 commits, ![+32,960](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B32,960&color=brightgreen) ![-5,537](https://img.shields.io/static/v1?style=flat-square&label=&message=-5,537&color=red)  
 📦 [karanbalani/shiplog-site](https://github.com/karanbalani/shiplog-site) - 🔥 5 commits, ![+5,683](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B5,683&color=brightgreen) ![-386](https://img.shields.io/static/v1?style=flat-square&label=&message=-386&color=red)  
 📦 [SigNoz/signoz.io](https://github.com/SigNoz/signoz.io) - 🔥 5 commits, ![+995](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B995&color=brightgreen) ![-194](https://img.shields.io/static/v1?style=flat-square&label=&message=-194&color=red)  
 📦 [ClackHouse/stacks](https://github.com/ClackHouse/stacks) - 🔥 4 commits, ![+3,935](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B3,935&color=brightgreen) ![-48](https://img.shields.io/static/v1?style=flat-square&label=&message=-48&color=red)  
