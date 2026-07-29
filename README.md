@@ -6,13 +6,13 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Captured commits | 2,346 | 1,757 |
+| 🔥 Captured commits | 2,371 | 1,782 |
 | 📝 Captured issues | 60 | 40 |
-| 🔀 Captured PRs | 363 | 317 |
+| 🔀 Captured PRs | 375 | 329 |
 | 👀 PR reviews | 137 | 130 |
-| 🎉 Total contributions | 7,395 (**4,747 Private/Restricted**) | 1,919 (**142 Private/Restricted**) |
-| ➕ Lines added | 1,235,384 | 302,190 |
-| ➖ Lines removed | 239,924 | 124,593 |
+| 🎉 Total contributions | 7,420 (**4,747 Private/Restricted**) | 1,944 (**142 Private/Restricted**) |
+| ➕ Lines added | 1,245,590 | 312,396 |
+| ➖ Lines removed | 245,594 | 130,263 |
 | 📦 Known repos | 104 | 39 |
 | ⭐️ Owned stars | 47 | 3 |
 
@@ -32,6 +32,7 @@
 📦 [SigNoz/signoz](https://github.com/SigNoz/signoz) - 🔥 39 commits, ![+16,812](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B16,812&color=brightgreen) ![-3,721](https://img.shields.io/static/v1?style=flat-square&label=&message=-3,721&color=red)  
 📦 [SigNoz/signoz-otel-collector](https://github.com/SigNoz/signoz-otel-collector) - 🔥 3 commits, ![+102](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B102&color=brightgreen) ![-28](https://img.shields.io/static/v1?style=flat-square&label=&message=-28&color=red)  
 📦 [karanbalani/sand-browse](https://github.com/karanbalani/sand-browse) - 🔥 16 commits, ![+11,692](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B11,692&color=brightgreen) ![-10](https://img.shields.io/static/v1?style=flat-square&label=&message=-10&color=red)  
+📦 [karanbalani/retsu](https://github.com/karanbalani/retsu) - 🔥 123 commits, ![+46,988](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B46,988&color=brightgreen) ![-15,760](https://img.shields.io/static/v1?style=flat-square&label=&message=-15,760&color=red)  
 📦 [ClackHouse/website](https://github.com/ClackHouse/website) - 🔥 10 commits, ![+17,010](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B17,010&color=brightgreen) ![-580](https://img.shields.io/static/v1?style=flat-square&label=&message=-580&color=red)  
 📦 [karanbalani/dotfiles](https://github.com/karanbalani/dotfiles) - 🔥 1 commits, ![+234](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B234&color=brightgreen) ![-107](https://img.shields.io/static/v1?style=flat-square&label=&message=-107&color=red)
 
