@@ -6,14 +6,14 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Captured commits | 2,536 | 1,947 |
+| 🔥 Captured commits | 2,540 | 1,948 |
 | 📝 Captured issues | 61 | 40 |
 | 🔀 Captured PRs | 391 | 345 |
 | 👀 PR reviews | 137 | 130 |
-| 🎉 Total contributions | 7,592 (**4,747 Private/Restricted**) | 2,116 (**142 Private/Restricted**) |
-| ➕ Lines added | 1,303,211 | 370,017 |
-| ➖ Lines removed | 271,662 | 156,331 |
-| 📦 Known repos | 104 | 38 |
+| 🎉 Total contributions | 7,597 (**4,747 Private/Restricted**) | 2,121 (**142 Private/Restricted**) |
+| ➕ Lines added | 1,303,215 | 368,855 |
+| ➖ Lines removed | 271,666 | 156,067 |
+| 📦 Known repos | 104 | 37 |
 | ⭐️ Owned stars | 47 | 3 |
 
 ## 🏢 Organization Snapshot
