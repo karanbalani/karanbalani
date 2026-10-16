@@ -6,14 +6,14 @@
 
 | Metric | All Time | Last 365 Days |
 | --- | --- | --- |
-| 🔥 Captured commits | 3,144 | 2,423 |
+| 🔥 Captured commits | 3,168 | 2,447 |
 | 📝 Captured issues | 61 | 40 |
-| 🔀 Captured PRs | 432 | 351 |
-| 👀 PR reviews | 505 | 498 |
-| 🎉 Total contributions | 8,229 (**4,747 Private/Restricted**) | 2,753 (**142 Private/Restricted**) |
-| ➕ Lines added | 1,339,793 | 365,164 |
-| ➖ Lines removed | 275,558 | 152,297 |
-| 📦 Known repos | 116 | 46 |
+| 🔀 Captured PRs | 433 | 352 |
+| 👀 PR reviews | 537 | 530 |
+| 🎉 Total contributions | 8,237 (**4,747 Private/Restricted**) | 2,761 (**142 Private/Restricted**) |
+| ➕ Lines added | 1,341,912 | 367,283 |
+| ➖ Lines removed | 276,447 | 153,186 |
+| 📦 Known repos | 117 | 47 |
 | ⭐️ Owned stars | 47 | 3 |
 
 ## 🏢 Organization Snapshot
@@ -21,7 +21,7 @@
 | Org | Coverage | Commits | PRs | Lines |
 | --- | --- | --- | --- | --- |
 | [SigNoz](https://signoz.io/) | 14 repos | 76 | 142 | ![+22,791](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B22,791&color=brightgreen) ![-4,276](https://img.shields.io/static/v1?style=flat-square&label=&message=-4,276&color=red) |
-| [Keychain](https://www.keychain.com/) | 12 repos | 218 | 41 | ![+36,425](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B36,425&color=brightgreen) ![-3,739](https://img.shields.io/static/v1?style=flat-square&label=&message=-3,739&color=red) |
+| [Keychain](https://www.keychain.com/) | 13 repos | 234 | 42 | ![+38,538](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B38,538&color=brightgreen) ![-4,622](https://img.shields.io/static/v1?style=flat-square&label=&message=-4,622&color=red) |
 | [ClackHouse](https://clack.house) | 6 repos | 172 | 35 | ![+79,756](https://img.shields.io/static/v1?style=flat-square&label=&message=%2B79,756&color=brightgreen) ![-9,073](https://img.shields.io/static/v1?style=flat-square&label=&message=-9,073&color=red) |
 
 ## 🚀 Most Active Public Projects (Last 365 Days)
